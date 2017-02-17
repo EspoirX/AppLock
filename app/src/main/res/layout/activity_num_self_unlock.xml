@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/unlock_layout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:clipToPadding="false"
+              android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar"/>
+
+
+    <TextView
+        android:id="@+id/lock_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:gravity="center_horizontal"
+        android:text="@string/lock_enter_pin_code"
+        android:textColor="@color/bg_blue_normal"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/lock_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="确认你的身份"
+        android:textColor="@color/font_light_gray"/>
+
+    <include
+        android:id="@+id/number_lock_layout"
+        layout="@layout/layout_num_lock"
+        android:layout_width="match_parent"
+        android:layout_marginTop="60dp"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

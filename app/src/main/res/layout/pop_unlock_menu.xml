@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/triangle_arrow"/>
+
+        <TextView
+            android:id="@+id/menu_not_lock"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_white_top_corner"
+            android:drawableLeft="@drawable/menu_pattern_lock"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:paddingTop="5dp"
+            android:text="不锁该应用"/>
+
+        <TextView
+            android:id="@+id/menu_setting"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/bg_white_clicked"
+            android:drawableLeft="@drawable/menu_pattern_setting"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:text="设置"/>
+
+        <TextView
+            android:id="@+id/checkbox_pattern"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_white_bottom_corner"
+            android:drawableLeft="@drawable/menu_pattern_invisible"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/menu_pattern_select"
+            android:gravity="center_vertical"
+            android:paddingBottom="5dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="隐藏路径"/>
+    </LinearLayout>
+
+</LinearLayout>

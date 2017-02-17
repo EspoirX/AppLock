@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_80">#ccffffff</color><!--80透明度-->
+    <color name="white_90">#e6ffffff</color><!--90透明度-->
+    <color name="white_70">#b3ffffff</color><!--70透明度-->
+    <color name="white_50">#80ffffff</color><!--50透明度-->
+    <color name="white_40">#66ffffff</color><!--40透明度-->
+    <color name="white_20">#33ffffff</color><!--20透明度-->
+    <color name="white_10">#19ffffff</color><!--20透明度-->
+    <color name="white_30">#4Dffffff</color><!--30透明度-->
+    <color name="tr_black10">#1a000000</color><!--10透明度-->
+    <color name="tr_black50">#80000000</color><!--50透明度-->
+    <color name="line_color">#eaeaea</color>
+    <color name="font_deep_gray">#5b5b5b</color>  <!--字体深灰色-->
+    <color name="font_light_gray">#b7b7b7</color>  <!--字体浅灰色-->
+    <color name="bg_blue_normal">#2c9ffe</color>
+    <color name="bg_blue_normal_50">#7f2c9ffe</color>
+    <color name="bg_blue_selected">#2994ec</color>
+    <color name="transparent">#00000000</color>
+    <color name="bg_white_normal">#ffffff</color>
+    <color name="bg_white_selected">#f3f3f3</color>
+
+</resources>

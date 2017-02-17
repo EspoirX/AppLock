@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar_title"
+    android:layout_width="wrap_content"
+    android:layout_height="?attr/actionBarSize"
+    android:ellipsize="end"
+    android:gravity="center"
+    android:maxWidth="280dp"
+    android:singleLine="true"
+    android:textColor="@color/white"
+    android:textSize="20sp" />

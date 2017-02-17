@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <com.lzx.lock.widget.CircleImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/header"
+        app:border_color2="@color/colorPrimary"
+        app:border_width="2dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="L_Xian"
+        android:textColor="@color/font_deep_gray"
+        android:textSize="16sp"/>
+
+    <View
+        android:layout_width="120dp"
+        android:layout_height="1dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="GitHub:https://github.com/lizixian18"
+        android:textColorLink="@color/colorPrimary"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="简书:http://www.jianshu.com/users/286f9ad9c417/latest_articles"
+        android:textColorLink="@color/colorPrimary"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="新浪微博:http://m.weibo.cn/users/1777669342/qq"
+        android:textColorLink="@color/colorPrimary"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="QQ邮箱:386707112@qq.com"
+        android:textColorLink="@color/colorPrimary"/>
+</LinearLayout>
