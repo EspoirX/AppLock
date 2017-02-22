@@ -5,7 +5,7 @@
 ![](art/ic_launcher.png)
 
 #### 简介  
-AppLock应用锁，保护你的隐私。     
+AppLock应用锁，保护你的隐私。       
 欢迎Start,Fork和Issues。    
 项目用到的第三方库：litepal     
 在5.0以上的系统需要获取 查看应用使用情况 的权限，否则应用锁会失效   

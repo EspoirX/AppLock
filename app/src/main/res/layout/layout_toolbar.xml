@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
+        app:titleTextColor="@color/white"
         android:theme="@style/ThemeOverlay.AppCompat.Light"
         app:navigationIcon="@drawable/ic_back_white"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />

@@ -110,7 +110,7 @@
         android:text="数字锁"
         android:textColor="@color/white_70"
         android:textSize="14sp"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/btn_done"
