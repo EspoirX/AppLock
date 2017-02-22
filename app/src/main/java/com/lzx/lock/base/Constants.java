@@ -19,8 +19,6 @@ public class Constants {
     public static final String LOCK_IS_FIRST_LOCK = "is_lock"; //是否加过锁
     public static final String LOCK_AUTO_SCREEN = "lock_auto_screen"; //是否在手机屏幕关闭后再次锁定
     public static final String LOCK_AUTO_SCREEN_TIME = "lock_auto_screen_time"; //是否在手机屏幕关闭后一段时间再次锁定
-    public static final String LOCK_APP_QUIT = "lock_app_quit"; //是否在应用在退出后立即锁定
-    public static final String LOCK_APP_ONCE_PWD = "lock_app_once_pwd"; //是否输入一次密码解锁全部应用
     public static final String LOCK_CURR_MILLISENCONS = "lock_curr_milliseconds"; //记录当前的时间（毫秒）
     public static final String LOCK_APART_MILLISENCONS = "lock_apart_milliseconds"; //记录相隔的时间（毫秒）
     public static final String LOCK_APART_TITLE = "lock_apart_title"; ///记录相隔的时间对应的标题
