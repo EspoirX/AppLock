@@ -31,8 +31,8 @@ AppLock应用锁，保护你的隐私。       
 <a href="rt_coll_article.png"><img src="art/3.png" width="40%"/></a> 
 <a href="art_coll_theme.png"><img src="art/4.png" width="40%"/></a>
 
-<a href="art_detail.png"><img src="art/5.png" width="40%"/></a>
-<a href="art_share.png"><img src="art/6.png" width="40%"/></a>
+<a href="art_detail.png"><img src="art/5.jpg" width="40%"/></a>
+<a href="art_share.png"><img src="art/6.jpg" width="40%"/></a>
 
 <a href="art_comment.png"><img src="art/7.png" width="40%"/></a>
 <a href="art_edorit.png"><img src="art/8.png" width="40%"/></a>
