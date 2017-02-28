@@ -3,6 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical"
+              android:background="@color/white"
               android:paddingLeft="16dp"
               android:paddingRight="16dp">
 
@@ -18,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
-        android:text="你的系统大于等于5.0，我们需要获取 查看应用使用情况 权限"/>
+        android:text="@string/dialog_tip"/>
 
     <TextView
         android:id="@+id/btn_permission"
@@ -30,5 +31,6 @@
         android:background="@drawable/bg_btn_blue"
         android:gravity="center"
         android:text="去获取"
+        android:layout_marginBottom="20dp"
         android:textColor="@color/white"/>
 </LinearLayout>

@@ -8,16 +8,15 @@ import android.widget.TextView;
 import com.lzx.lock.R;
 
 /**
- * Created by lzx on 2017/2/22.
- * 386707112@qq.com
+ * Created by xian on 2017/2/28.
  */
 
-public class PermissionDialog extends BaseDialog {
+public class DialogPermission extends BaseDialog {
 
     private TextView mBtnPermission;
     private onClickListener mOnClickListener;
 
-    public PermissionDialog(Context context) {
+    public DialogPermission(Context context) {
         super(context);
     }
 
@@ -62,4 +61,5 @@ public class PermissionDialog extends BaseDialog {
     protected int getContentViewId() {
         return R.layout.dialog_permission;
     }
+
 }

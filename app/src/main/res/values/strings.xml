@@ -19,7 +19,7 @@
     <string name="password_error_count">密码不匹配。请重试。</string>
     <string name="lock_draw_unlock_pattern">画出解锁路径</string>
     <string name="lock_enter_pin_code">输入数字密码</string>
-    <string name="lock_pattern_confirmed_header">忘记密码的电子邮件</string>
+    <string name="lock_pattern_confirmed_header"></string>
 
     <!--数字解锁相关-->
     <string name="num_create_text_01">输入4位数密码即可解锁</string>
@@ -46,4 +46,8 @@
         <item>10 分钟</item>
         <item>30 分钟</item>
     </string-array>
+
+    <string name="dialog_tip">你的系统大于等于5.0，我们需要获取 “查看应用使用情况” 权限\n
+        同时，为了让程序一直在后台运行，还需获取 “通知栏” 权限。
+    </string>
 </resources>

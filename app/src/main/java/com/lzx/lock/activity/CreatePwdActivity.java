@@ -28,9 +28,9 @@ import com.lzx.lock.utils.LockPatternUtils;
 import com.lzx.lock.utils.LockUtil;
 import com.lzx.lock.utils.SpUtil;
 import com.lzx.lock.utils.ToastUtil;
+import com.lzx.lock.widget.DialogPermission;
 import com.lzx.lock.widget.LockPatternView;
 import com.lzx.lock.widget.LockPatternViewPattern;
-import com.lzx.lock.widget.PermissionDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +77,7 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
     private NumberCreateContract.Presenter mPresenter;
 
     private int RESULT_ACTION_USAGE_ACCESS_SETTINGS = 1;
+    private int RESULT_ACTION_NOTIFICATION_LISTENER_SETTINGS = 2;
     private CommLockInfoManager mLockInfoManager;
 
     private MenuItem mMenuItem;
@@ -239,28 +240,38 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
                 deleteNumber();
                 break;
             case R.id.btn_done:
-                if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) { //如果大于21
-                    if (!LockUtil.isStatAccessPermissionSet(CreatePwdActivity.this)) { //如果没权限
-                        if (LockUtil.isNoOption(CreatePwdActivity.this)) { //如果有设置界面
-                            PermissionDialog dialog = new PermissionDialog(CreatePwdActivity.this);
-                            dialog.show();
-                            dialog.setOnClickListener(new PermissionDialog.onClickListener() {
-                                @Override
-                                public void onClick() {
-                                    gotoPermissionActivity(); //小于23转跳到授权界面
-                                }
-                            });
-                        } else {
-                            gotoLockMainActivity(); //没设置界面 直接转跳
-                        }
-                    } else {
-                        gotoLockMainActivity(); //有权限直接转跳
-                    }
-                } else {
-                    gotoLockMainActivity(); //小于21直接转跳
-                }
+                actionDown();
                 break;
         }
+    }
+
+    private DialogPermission dialog;
+
+    private void actionDown() {
+        if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) { //如果大于21
+            if (!LockUtil.isStatAccessPermissionSet(CreatePwdActivity.this)) { //如果没权限
+                if (LockUtil.isNoOption(CreatePwdActivity.this)) { //如果有设置界面
+                    showDialog();
+                } else {
+                    gotoLockMainActivity(); //没设置界面 直接转跳
+                }
+            } else {
+                gotoLockMainActivity(); //有权限直接转跳
+            }
+        } else {
+            gotoLockMainActivity(); //小于21直接转跳
+        }
+    }
+
+    private void showDialog() {
+        dialog = new DialogPermission(CreatePwdActivity.this);
+        dialog.show();
+        dialog.setOnClickListener(new DialogPermission.onClickListener() {
+            @Override
+            public void onClick() {
+                gotoPermissionActivity(); //小于23转跳到授权界面
+            }
+        });
     }
 
     @Override
@@ -268,6 +279,21 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_ACTION_USAGE_ACCESS_SETTINGS) {
             if (LockUtil.isStatAccessPermissionSet(CreatePwdActivity.this)) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
+                    if (!LockUtil.isNotificationSettingOn(CreatePwdActivity.this)) {
+                        Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
+                        startActivityForResult(intent, RESULT_ACTION_NOTIFICATION_LISTENER_SETTINGS);
+                    } else {
+                        gotoLockMainActivity();
+                        finish();
+                    }
+                } else {
+                    gotoLockMainActivity();
+                    finish();
+                }
+            }
+        } else if (requestCode == RESULT_ACTION_NOTIFICATION_LISTENER_SETTINGS) {
+            if (LockUtil.isNotificationSettingOn(CreatePwdActivity.this)){
                 gotoLockMainActivity();
                 finish();
             }

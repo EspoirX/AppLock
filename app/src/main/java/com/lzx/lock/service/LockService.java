@@ -41,6 +41,7 @@ public class LockService extends IntentService {
     }
 
 
+
     public boolean threadIsTerminate = false; //是否开启循环
 
     public static final String UNLOCK_ACTION = "UNLOCK_ACTION";
