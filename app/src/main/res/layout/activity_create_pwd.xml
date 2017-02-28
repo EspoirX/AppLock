@@ -2,78 +2,53 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/bg_blue_normal"
               android:orientation="vertical">
 
-    <include layout="@layout/layout_toolbar"/>
+    <include
+        layout="@layout/layout_toolbar"
+        android:visibility="gone"/>
 
     <RelativeLayout
-        android:id="@+id/navigation_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:orientation="horizontal">
+        android:layout_height="226dp"
+        android:background="#2DAC7C">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_back"/>
 
         <TextView
-            android:id="@+id/step_one"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/one_to_two"
-            android:background="@drawable/bg_white_round"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/btn_back"
             android:gravity="center"
-            android:text="1"
-            android:textColor="@color/bg_blue_normal"/>
+            android:text="应用锁"
+            android:textColor="@color/white"
+            android:textSize="14sp"/>
 
-        <View
-            android:id="@+id/one_to_two"
-            android:layout_width="20dp"
-            android:layout_height="4dp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/step_two"
-            android:background="@color/white_80"/>
-
-        <TextView
-            android:id="@+id/step_two"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+        <ImageView
+            android:id="@+id/lock_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@drawable/bg_white80_round"
-            android:gravity="center"
-            android:text="2"
-            android:textColor="@color/bg_blue_normal"/>
-
-        <View
-            android:id="@+id/two_to_three"
-            android:layout_width="20dp"
-            android:layout_height="4dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/step_two"
-            android:background="@color/white_80"/>
+            android:src="@drawable/ic_lock"/>
 
         <TextView
-            android:id="@+id/step_three"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/two_to_three"
-            android:background="@drawable/bg_white80_round"
+            android:id="@+id/lock_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lock_icon"
+            android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="3"
-            android:textColor="@color/bg_blue_normal"/>
-
+            android:text="daslkdjaksld"
+            android:textColor="@color/white"
+            android:textSize="14sp"/>
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/lock_tip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:lines="1"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:visibility="visible"/>
 
     <!--图形锁-->
     <com.lzx.lock.widget.LockPatternView
@@ -81,22 +56,8 @@
         android:layout_width="290dp"
         android:layout_height="290dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:visibility="visible"/>
-
-    <!--数字锁-->
-    <include
-        layout="@layout/layout_num_lock"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/switch_lock"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="50dp"
-        android:visibility="gone"/>
-
-
 
     <TextView
         android:id="@+id/btn_done"
@@ -110,6 +71,5 @@
         android:textColor="@color/tr_black50"
         android:textSize="25sp"
         android:visibility="gone"/>
-
 
 </LinearLayout>

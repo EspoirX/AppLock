@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="vertical"
               android:background="@color/white"
+              android:orientation="vertical"
               android:paddingLeft="16dp"
               android:paddingRight="16dp">
 
@@ -21,16 +21,29 @@
         android:gravity="center_horizontal"
         android:text="@string/dialog_tip"/>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_per_one"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_per_two"/>
+
     <TextView
         android:id="@+id/btn_permission"
         android:layout_width="match_parent"
         android:layout_height="35dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/bg_btn_blue"
         android:gravity="center"
         android:text="去获取"
-        android:layout_marginBottom="20dp"
         android:textColor="@color/white"/>
 </LinearLayout>

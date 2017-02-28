@@ -15,6 +15,7 @@ import com.lzx.lock.adapter.MainLockAdapter;
 import com.lzx.lock.base.BaseActivity;
 import com.lzx.lock.base.Constants;
 import com.lzx.lock.bean.CommLockInfo;
+import com.lzx.lock.module.pwd.CreatePwdActivity;
 import com.lzx.lock.mvp.contract.MainContract;
 import com.lzx.lock.mvp.p.MainPresenter;
 import com.lzx.lock.utils.SpUtil;

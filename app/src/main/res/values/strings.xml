@@ -47,7 +47,6 @@
         <item>30 分钟</item>
     </string-array>
 
-    <string name="dialog_tip">你的系统大于等于5.0，我们需要获取 “查看应用使用情况” 权限\n
-        同时，为了让程序一直在后台运行，还需获取 “通知栏” 权限。
+    <string name="dialog_tip">你的系统大于等于5.0，我们需要获取 “查看应用使用情况” 权限
     </string>
 </resources>

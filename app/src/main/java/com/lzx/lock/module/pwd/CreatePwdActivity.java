@@ -1,28 +1,22 @@
-package com.lzx.lock.activity;
+package com.lzx.lock.module.pwd;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.content.ContextCompat;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lzx.lock.R;
+import com.lzx.lock.activity.FirstMainActivity;
+import com.lzx.lock.activity.LockMainActivity;
 import com.lzx.lock.base.BaseActivity;
 import com.lzx.lock.base.Constants;
 import com.lzx.lock.bean.CommLockInfo;
 import com.lzx.lock.bean.LockStage;
 import com.lzx.lock.db.CommLockInfoManager;
 import com.lzx.lock.mvp.contract.GestureCreateContract;
-import com.lzx.lock.mvp.contract.NumberCreateContract;
 import com.lzx.lock.mvp.p.GestureCreatePresenter;
-import com.lzx.lock.mvp.p.NumberCreatePresenter;
 import com.lzx.lock.service.LockService;
 import com.lzx.lock.utils.LockPatternUtils;
 import com.lzx.lock.utils.LockUtil;
@@ -40,24 +34,19 @@ import java.util.List;
  */
 
 public class CreatePwdActivity extends BaseActivity implements View.OnClickListener,
-        GestureCreateContract.View, NumberCreateContract.View {
+        GestureCreateContract.View  {
 
     private ArrayList<CommLockInfo> mLockList; //保存的加锁应用
     private ArrayList<CommLockInfo> mUnLockList; //保存的没加锁应用
 
-    private TextView mStepOne, mStepTwo, mStepThree, mLockTip;
-    private View mLineOneToTwo, mLineTwoToThree;
+    private TextView   mLockTip;
+   // private View mLineOneToTwo, mLineTwoToThree;
     private LockPatternView mLockPatternView;
-    private LinearLayout mNumLockLayout;
-    private ImageView mNumPoint_1, mNumPoint_2, mNumPoint_3, mNumPoint_4;
-    private TextView mNumber_0, mNumber_1, mNumber_2, mNumber_3, mNumber_4, mNumber_5, mNumber_6, mNumber_7, mNumber_8, mNumber_9;
-    private ImageView mNumberDel;
-
     private TextView mBtnDone;
 
     private Bundle savedInstanceState;
 
-    private int currLocType = 0;//当前锁类型 0 图案 1 数字
+
 
     //图案锁相关
     private LockStage mUiStage = LockStage.Introduction;
@@ -70,17 +59,13 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
     private LockPatternViewPattern mPatternViewPattern;
     private GestureCreatePresenter mGestureCreatePresenter;
 
-    //数字锁相关
-    private static final int COUNT = 4; //4个点
-    private List<String> numInput; //存储输入数字的列表
-    private List<ImageView> pointList;
-    private NumberCreateContract.Presenter mPresenter;
+
 
     private int RESULT_ACTION_USAGE_ACCESS_SETTINGS = 1;
     private int RESULT_ACTION_NOTIFICATION_LISTENER_SETTINGS = 2;
     private CommLockInfoManager mLockInfoManager;
 
-    private MenuItem mMenuItem;
+
 
     @Override
     public int getLayoutId() {
@@ -90,29 +75,7 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void initViews(Bundle savedInstanceState) {
         this.savedInstanceState = savedInstanceState;
-        mStepOne = (TextView) findViewById(R.id.step_one);
-        mStepTwo = (TextView) findViewById(R.id.step_two);
-        mStepThree = (TextView) findViewById(R.id.step_three);
-        mLineOneToTwo = findViewById(R.id.one_to_two);
-        mLineTwoToThree = findViewById(R.id.two_to_three);
         mLockPatternView = (LockPatternView) findViewById(R.id.lock_pattern_view);
-        mNumLockLayout = (LinearLayout) findViewById(R.id.num_lock_layout);
-        mNumPoint_1 = (ImageView) findViewById(R.id.num_point_1);
-        mNumPoint_2 = (ImageView) findViewById(R.id.num_point_2);
-        mNumPoint_3 = (ImageView) findViewById(R.id.num_point_3);
-        mNumPoint_4 = (ImageView) findViewById(R.id.num_point_4);
-        mNumber_0 = (TextView) findViewById(R.id.number_0);
-        mNumber_1 = (TextView) findViewById(R.id.number_1);
-        mNumber_2 = (TextView) findViewById(R.id.number_2);
-        mNumber_3 = (TextView) findViewById(R.id.number_3);
-        mNumber_4 = (TextView) findViewById(R.id.number_4);
-        mNumber_5 = (TextView) findViewById(R.id.number_5);
-        mNumber_6 = (TextView) findViewById(R.id.number_6);
-        mNumber_7 = (TextView) findViewById(R.id.number_7);
-        mNumber_8 = (TextView) findViewById(R.id.number_8);
-        mNumber_9 = (TextView) findViewById(R.id.number_9);
-        mNumberDel = (ImageView) findViewById(R.id.number_del);
-
         mLockTip = (TextView) findViewById(R.id.lock_tip);
         mBtnDone = (TextView) findViewById(R.id.btn_done);
     }
@@ -133,9 +96,6 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
             }
             mGestureCreatePresenter.updateStage(LockStage.values()[savedInstanceState.getInt(KEY_UI_STAGE)]);
         }
-
-        // 初始化数字锁
-        initNumLayout();
     }
 
     /**
@@ -155,90 +115,15 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
         mLockPatternView.setTactileFeedbackEnabled(true);
     }
 
-    /**
-     * 初始化数据
-     */
-    private void initNumLayout() {
-        mPresenter = new NumberCreatePresenter(this);
-        numInput = new ArrayList<>();
-        pointList = new ArrayList<>(COUNT);
-        pointList.add(mNumPoint_1);
-        pointList.add(mNumPoint_2);
-        pointList.add(mNumPoint_3);
-        pointList.add(mNumPoint_4);
-        for (ImageView iv : pointList) {
-            iv.setImageResource(R.drawable.num_point);
-        }
-    }
-
     @Override
     protected void initAction() {
-        mNumber_0.setOnClickListener(this);
-        mNumber_1.setOnClickListener(this);
-        mNumber_2.setOnClickListener(this);
-        mNumber_3.setOnClickListener(this);
-        mNumber_4.setOnClickListener(this);
-        mNumber_5.setOnClickListener(this);
-        mNumber_6.setOnClickListener(this);
-        mNumber_7.setOnClickListener(this);
-        mNumber_8.setOnClickListener(this);
-        mNumber_9.setOnClickListener(this);
-        mNumberDel.setOnClickListener(this);
         mBtnDone.setOnClickListener(this);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_create_pwd, menu);
-        mMenuItem = menu.findItem(R.id.menu_switch);
-        mMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                if (menuItem.getTitle().toString().equals("数字锁")) {
-                    currLocType = 1;
-                    mLockPatternView.setVisibility(View.GONE);
-                    mNumLockLayout.setVisibility(View.VISIBLE);
-                    menuItem.setTitle("图案锁");
-                    mLockTip.setText(R.string.num_create_text_01);
-                    SpUtil.getInstance().putInt(Constants.LOCK_TYPE, 1);
-                } else if (menuItem.getTitle().toString().equals("图案锁")) {
-                    currLocType = 0;
-                    mLockPatternView.setVisibility(View.VISIBLE);
-                    mNumLockLayout.setVisibility(View.GONE);
-                    menuItem.setTitle("数字锁");
-
-                    SpUtil.getInstance().putInt(Constants.LOCK_TYPE, 0);
-                } else if (menuItem.getTitle().toString().equals("重置")) {
-                    //恢复到第一步
-                    clearPattern();
-                    setStepOne();
-                    initNumLayout();
-                }
-                return false;
-            }
-        });
-        return true;
     }
 
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.number_0:
-            case R.id.number_1:
-            case R.id.number_2:
-            case R.id.number_3:
-            case R.id.number_4:
-            case R.id.number_5:
-            case R.id.number_6:
-            case R.id.number_7:
-            case R.id.number_8:
-            case R.id.number_9:
-                clickNumber((TextView) view);
-                break;
-            case R.id.number_del:
-                deleteNumber();
-                break;
             case R.id.btn_done:
                 actionDown();
                 break;
@@ -266,12 +151,6 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
     private void showDialog() {
         dialog = new DialogPermission(CreatePwdActivity.this);
         dialog.show();
-        dialog.setOnClickListener(new DialogPermission.onClickListener() {
-            @Override
-            public void onClick() {
-                gotoPermissionActivity(); //小于23转跳到授权界面
-            }
-        });
     }
 
     @Override
@@ -323,39 +202,7 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
     }
 
 
-    /**
-     * 恢复到第一步
-     */
-    private void setStepOne() {
-        mGestureCreatePresenter.updateStage(LockStage.Introduction);
-        mStepOne.setBackgroundResource(R.drawable.bg_white_round);
-        mStepOne.setText("1");
-        mLineOneToTwo.setBackgroundColor(ContextCompat.getColor(this, R.color.white_80));
-        mStepTwo.setBackgroundResource(R.drawable.bg_white80_round);
-        if (currLocType == 1) {
-            mMenuItem.setTitle("图案锁");
-        } else {
-            mMenuItem.setTitle("数字锁");
-        }
-    }
 
-    /**
-     * 点击数字
-     */
-    private void clickNumber(TextView btn) {
-        mPresenter.clickNumber(numInput, pointList, btn.getText().toString().trim());
-    }
-
-    /**
-     * 删除按钮
-     */
-    private void deleteNumber() {
-        if (numInput.size() == 0) {
-            return;
-        }
-        pointList.get(numInput.size() - 1).setImageResource(R.drawable.num_point);
-        numInput.remove(numInput.size() - 1);
-    }
 
     /**
      * 更新当前锁的状态
@@ -440,11 +287,7 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
      */
     @Override
     public void moveToStatusTwo() {
-        mStepOne.setText("");
-        mStepOne.setBackgroundResource(R.drawable.ic_lock_first_nav_suc);
-        mStepTwo.setBackgroundResource(R.drawable.bg_white_round);
-        mLineOneToTwo.setBackgroundColor(Color.WHITE);
-        mMenuItem.setTitle("重置");
+
     }
 
     /**
@@ -470,89 +313,20 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
      */
     @Override
     public void ChoiceConfirmed() {
-        mStepTwo.setText("");
-        mStepOne.setBackgroundResource(R.drawable.ic_lock_first_nav_suc);
-        mStepTwo.setBackgroundResource(R.drawable.ic_lock_first_nav_suc);
-        mStepThree.setBackgroundResource(R.drawable.bg_white_round);
-        mLineOneToTwo.setBackgroundColor(Color.WHITE);
-        mLineTwoToThree.setBackgroundColor(Color.WHITE);
+
         mLockPatternUtils.saveLockPattern(mChosenPattern); //保存密码
         SpUtil.getInstance().putInt(Constants.LOCK_TYPE, 0);
         mLockPatternView.setVisibility(View.GONE);
-        mMenuItem.setVisible(false);
+
         clearPattern();
         mBtnDone.setVisibility(View.VISIBLE);
     }
 
     /**==========================================================================**/
-
-    /**
-     * 设置密码
-     */
-    @Override
-    public void setNumberPointImageResource(ImageView iv, int resId) {
-        iv.setImageResource(resId);
-    }
-
-    /**
-     * 更新提示
-     */
-    @Override
-    public void updateLockTipString(int resId, boolean isToast) {
-        if (isToast) {
-            ToastUtil.showToast(getString(resId));
-        } else {
-            mLockTip.setText(resId);
-        }
-        mLockTip.postDelayed(showImageRunnable, 500);
-        if (resId == R.string.num_create_text_03) {
-
-        }
-    }
-
-    private Runnable showImageRunnable = new Runnable() {
-        @Override
-        public void run() {
-            for (ImageView iv : pointList) {
-                iv.setImageResource(R.drawable.num_point);
-            }
-        }
-    };
-
-    /**
-     * 成功了
-     */
-    @Override
-    public void createLockSuccess() {
-        mStepTwo.setText("");
-        mStepOne.setBackgroundResource(R.drawable.ic_lock_first_nav_suc);
-        mStepTwo.setBackgroundResource(R.drawable.ic_lock_first_nav_suc);
-        mStepThree.setBackgroundResource(R.drawable.bg_white_round);
-        mLineOneToTwo.setBackgroundColor(Color.WHITE);
-        mLineTwoToThree.setBackgroundColor(Color.WHITE);
-
-        SpUtil.getInstance().putInt(Constants.LOCK_TYPE, 1);
-
-        mNumLockLayout.setVisibility(View.GONE);
-        mLockPatternView.setVisibility(View.GONE);
-        mMenuItem.setVisible(false);
-
-        mBtnDone.setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * 第一步到第二步
-     */
-    @Override
-    public void completedFirstTime() {
-        moveToStatusTwo();
-        mLockTip.postDelayed(showImageRunnable, 500);
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mGestureCreatePresenter.onDestroy();
-        mPresenter.onDestroy();
+
     }
 }

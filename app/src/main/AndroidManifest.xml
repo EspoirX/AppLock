@@ -8,17 +8,18 @@
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
         android:name=".LockApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:manageSpaceActivity=".activity.SplashActivity"
+        android:manageSpaceActivity=".module.splash.SplashActivity"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".module.splash.SplashActivity"
             android:label=""
             android:screenOrientation="portrait">
             <intent-filter>
@@ -33,7 +34,7 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activity.CreatePwdActivity"
+            android:name=".module.pwd.CreatePwdActivity"
             android:label="创建密码"
             android:screenOrientation="portrait"/>
         <activity
