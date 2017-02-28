@@ -37,11 +37,11 @@ AppLock应用锁，保护你的隐私。       
 <a href="art_comment.png"><img src="art/7.png" width="40%"/></a>
 <a href="art_edorit.png"><img src="art/8.png" width="40%"/></a>
 
-<a href="art_edorit.png"><img src="art/9.jpg" width="40%"/></a>
-<a href="art_edorit.png"><img src="art/10.jpg" width="40%"/></a>
+<a href="art_edorit.png"><img src="art/9.png" width="40%"/></a>
+<a href="art_edorit.png"><img src="art/10.png" width="40%"/></a>
 
-<a href="art_edorit.png"><img src="art/11.jpg" width="40%"/></a>
-<a href="art_edorit.png"><img src="art/12.jpg" width="40%"/></a>
+<a href="art_edorit.png"><img src="art/11.png" width="40%"/></a>
+<a href="art_edorit.png"><img src="art/12.png" width="40%"/></a>
  
 #### About me
 An android developer in GuangZhou  
