@@ -1,9 +1,7 @@
 package com.lzx.lock.module.pwd;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,10 +17,7 @@ import com.lzx.lock.mvp.contract.GestureCreateContract;
 import com.lzx.lock.mvp.p.GestureCreatePresenter;
 import com.lzx.lock.service.LockService;
 import com.lzx.lock.utils.LockPatternUtils;
-import com.lzx.lock.utils.LockUtil;
 import com.lzx.lock.utils.SpUtil;
-import com.lzx.lock.utils.ToastUtil;
-import com.lzx.lock.widget.DialogPermission;
 import com.lzx.lock.widget.LockPatternView;
 import com.lzx.lock.widget.LockPatternViewPattern;
 
@@ -34,38 +29,23 @@ import java.util.List;
  */
 
 public class CreatePwdActivity extends BaseActivity implements View.OnClickListener,
-        GestureCreateContract.View  {
+        GestureCreateContract.View {
 
     private ArrayList<CommLockInfo> mLockList; //保存的加锁应用
     private ArrayList<CommLockInfo> mUnLockList; //保存的没加锁应用
-
-    private TextView   mLockTip;
-   // private View mLineOneToTwo, mLineTwoToThree;
+    private TextView mLockTip;
     private LockPatternView mLockPatternView;
-    private TextView mBtnDone;
-
+    private TextView mBtnReset;
     private Bundle savedInstanceState;
-
-
-
     //图案锁相关
     private LockStage mUiStage = LockStage.Introduction;
-    public static final int ID_EMPTY_MESSAGE = -1;
     protected List<LockPatternView.Cell> mChosenPattern = null; //密码
     private static final String KEY_PATTERN_CHOICE = "chosenPattern";
     private static final String KEY_UI_STAGE = "uiStage";
-    private final List<LockPatternView.Cell> mAnimatePattern = new ArrayList<>();
     private LockPatternUtils mLockPatternUtils;
     private LockPatternViewPattern mPatternViewPattern;
     private GestureCreatePresenter mGestureCreatePresenter;
-
-
-
-    private int RESULT_ACTION_USAGE_ACCESS_SETTINGS = 1;
-    private int RESULT_ACTION_NOTIFICATION_LISTENER_SETTINGS = 2;
     private CommLockInfoManager mLockInfoManager;
-
-
 
     @Override
     public int getLayoutId() {
@@ -77,7 +57,7 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
         this.savedInstanceState = savedInstanceState;
         mLockPatternView = (LockPatternView) findViewById(R.id.lock_pattern_view);
         mLockTip = (TextView) findViewById(R.id.lock_tip);
-        mBtnDone = (TextView) findViewById(R.id.btn_done);
+        mBtnReset = (TextView) findViewById(R.id.btn_reset);
     }
 
     @Override
@@ -117,76 +97,28 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void initAction() {
-        mBtnDone.setOnClickListener(this);
+        mBtnReset.setOnClickListener(this);
     }
-
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_done:
-                actionDown();
+            case R.id.btn_reset:
+                setStepOne();
                 break;
         }
     }
 
-    private DialogPermission dialog;
-
-    private void actionDown() {
-        if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) { //如果大于21
-            if (!LockUtil.isStatAccessPermissionSet(CreatePwdActivity.this)) { //如果没权限
-                if (LockUtil.isNoOption(CreatePwdActivity.this)) { //如果有设置界面
-                    showDialog();
-                } else {
-                    gotoLockMainActivity(); //没设置界面 直接转跳
-                }
-            } else {
-                gotoLockMainActivity(); //有权限直接转跳
-            }
-        } else {
-            gotoLockMainActivity(); //小于21直接转跳
-        }
-    }
-
-    private void showDialog() {
-        dialog = new DialogPermission(CreatePwdActivity.this);
-        dialog.show();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_ACTION_USAGE_ACCESS_SETTINGS) {
-            if (LockUtil.isStatAccessPermissionSet(CreatePwdActivity.this)) {
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
-                    if (!LockUtil.isNotificationSettingOn(CreatePwdActivity.this)) {
-                        Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
-                        startActivityForResult(intent, RESULT_ACTION_NOTIFICATION_LISTENER_SETTINGS);
-                    } else {
-                        gotoLockMainActivity();
-                        finish();
-                    }
-                } else {
-                    gotoLockMainActivity();
-                    finish();
-                }
-            }
-        } else if (requestCode == RESULT_ACTION_NOTIFICATION_LISTENER_SETTINGS) {
-            if (LockUtil.isNotificationSettingOn(CreatePwdActivity.this)){
-                gotoLockMainActivity();
-                finish();
-            }
-        }
-    }
-
-    private void gotoPermissionActivity() {
-        Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-        startActivityForResult(intent, RESULT_ACTION_USAGE_ACCESS_SETTINGS);
+    /**
+     * 恢复到第一步
+     */
+    private void setStepOne() {
+        mGestureCreatePresenter.updateStage(LockStage.Introduction);
+        mLockTip.setText(getString(R.string.lock_recording_intro_header));
     }
 
     private void gotoLockMainActivity() {
         sendBroadcast(new Intent(FirstMainActivity.ACTION_FINISH));
-
         for (CommLockInfo pro : mLockList) {
             mLockInfoManager.lockCommApplication(pro.getPackageName());
         }
@@ -200,9 +132,6 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
         startActivity(new Intent(this, LockMainActivity.class));
         finish();
     }
-
-
-
 
     /**
      * 更新当前锁的状态
@@ -225,11 +154,7 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
      */
     @Override
     public void updateLockTip(String text, boolean isToast) {
-        if (isToast) {
-            ToastUtil.showToast(text);
-        } else {
-            mLockTip.setText(text);
-        }
+        mLockTip.setText(text);
     }
 
     /**
@@ -313,20 +238,15 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
      */
     @Override
     public void ChoiceConfirmed() {
-
         mLockPatternUtils.saveLockPattern(mChosenPattern); //保存密码
-        SpUtil.getInstance().putInt(Constants.LOCK_TYPE, 0);
-        mLockPatternView.setVisibility(View.GONE);
-
         clearPattern();
-        mBtnDone.setVisibility(View.VISIBLE);
+        gotoLockMainActivity();
     }
 
-    /**==========================================================================**/
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mGestureCreatePresenter.onDestroy();
-
     }
 }
