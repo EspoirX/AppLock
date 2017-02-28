@@ -6,7 +6,7 @@
 
 #### 简介  
 AppLock应用锁，保护你的隐私。       
-欢迎Start,Fork和Issues。    
+欢迎Start,Fork和Issues。
 项目用到的第三方库：litepal     
 在5.0以上的系统需要获取 查看应用使用情况 的权限，否则应用锁会失效   
 目前项目还很粗糙，之后会一直改进
@@ -20,6 +20,11 @@ AppLock应用锁，保护你的隐私。       
 -  隐藏和显示解锁路径
 -  设置延时加锁和屏幕关闭后加锁以及它们的组合
 -  设置不锁某应用
+
+2017-2-28
+-  更改设置里清楚数据为管理空间
+-  添加了NotificationListenerService
+-  更改了图标
 
 #### Apk下载
 ![](art/download.png)
