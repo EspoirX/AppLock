@@ -4,16 +4,15 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.widget.ImageView;
 
 import com.lzx.lock.R;
-import com.lzx.lock.activity.FirstMainActivity;
 import com.lzx.lock.activity.unlock.GestureSelfUnlockActivity;
 import com.lzx.lock.base.BaseActivity;
 import com.lzx.lock.base.Constants;
+import com.lzx.lock.module.main.MainActivity;
 import com.lzx.lock.service.LoadAppListService;
 import com.lzx.lock.service.LockService;
 import com.lzx.lock.utils.AppUtils;
@@ -105,32 +104,12 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void gotoFirstMainActivity() {
-        Intent intent = new Intent(SplashActivity.this, FirstMainActivity.class);
+        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         intent.putExtra(Constants.LOCK_PACKAGE_NAME, Constants.APP_PACKAGE_NAME); //传自己的包名
         intent.putExtra(Constants.LOCK_FROM, Constants.LOCK_FROM_LOCK_MAIN_ACITVITY);
         startActivity(intent);
         finish();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-    }
-
-    /**
-     * 判断是否有悬浮窗权限
-     */
-    private boolean isManageOverlay() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            try {
-                if (!Settings.canDrawOverlays(SplashActivity.this)) {
-                    return false;
-                } else {
-                    return true;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
-        } else {
-            return true;
-        }
     }
 
 

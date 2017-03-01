@@ -18,6 +18,7 @@
             android:layout_height="match_parent"/>
 
         <include layout="@layout/item_lock_top"/>
+
     </FrameLayout>
 
 </LinearLayout>

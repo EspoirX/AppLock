@@ -3,21 +3,23 @@ package com.lzx.lock.module.pwd;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lzx.lock.R;
 import com.lzx.lock.activity.FirstMainActivity;
-import com.lzx.lock.activity.LockMainActivity;
 import com.lzx.lock.base.BaseActivity;
 import com.lzx.lock.base.Constants;
 import com.lzx.lock.bean.CommLockInfo;
 import com.lzx.lock.bean.LockStage;
 import com.lzx.lock.db.CommLockInfoManager;
+import com.lzx.lock.module.main.MainActivity;
 import com.lzx.lock.mvp.contract.GestureCreateContract;
 import com.lzx.lock.mvp.p.GestureCreatePresenter;
 import com.lzx.lock.service.LockService;
 import com.lzx.lock.utils.LockPatternUtils;
 import com.lzx.lock.utils.SpUtil;
+import com.lzx.lock.utils.SystemBarHelper;
 import com.lzx.lock.widget.LockPatternView;
 import com.lzx.lock.widget.LockPatternViewPattern;
 
@@ -46,6 +48,7 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
     private LockPatternViewPattern mPatternViewPattern;
     private GestureCreatePresenter mGestureCreatePresenter;
     private CommLockInfoManager mLockInfoManager;
+    private RelativeLayout mTopLayout;
 
     @Override
     public int getLayoutId() {
@@ -58,6 +61,8 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
         mLockPatternView = (LockPatternView) findViewById(R.id.lock_pattern_view);
         mLockTip = (TextView) findViewById(R.id.lock_tip);
         mBtnReset = (TextView) findViewById(R.id.btn_reset);
+        mTopLayout = (RelativeLayout) findViewById(R.id.top_layout);
+        mTopLayout.setPadding(0, SystemBarHelper.getStatusBarHeight(this),0,0);
     }
 
     @Override
@@ -129,7 +134,7 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
 
         startService(new Intent(this, LockService.class));
         SpUtil.getInstance().putBoolean(Constants.LOCK_IS_FIRST_LOCK, false);
-        startActivity(new Intent(this, LockMainActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 

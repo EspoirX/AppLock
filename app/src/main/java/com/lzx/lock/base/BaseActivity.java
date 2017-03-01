@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.lzx.lock.LockApp;
 import com.lzx.lock.R;
+import com.lzx.lock.utils.SystemBarHelper;
 
 /**
  * Created by xian on 2017/2/17.
@@ -43,6 +44,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setTitle("");
+            SystemBarHelper.immersiveStatusBar(this);
+            SystemBarHelper.setHeightAndPadding(this, mToolbar);
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

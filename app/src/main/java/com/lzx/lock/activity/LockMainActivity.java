@@ -25,7 +25,6 @@ import java.util.List;
 /**
  * Created by xian on 2017/2/17.
  */
-
 public class LockMainActivity extends BaseActivity implements LockMainContract.View, View.OnClickListener {
 
     private RecyclerView mRecyclerView;
@@ -50,7 +49,6 @@ public class LockMainActivity extends BaseActivity implements LockMainContract.V
         mCheckBoxSys = (CheckBox) findViewById(R.id.checkbox_sys);
         mCheckBoxApp = (CheckBox) findViewById(R.id.checkbox_app);
         mTopItemLayout.setVisibility(View.GONE);
-
     }
 
     @Override
@@ -105,10 +103,8 @@ public class LockMainActivity extends BaseActivity implements LockMainContract.V
                 }
             }
         });
-
         mCheckBoxSys.setOnClickListener(this);
         mCheckBoxApp.setOnClickListener(this);
-
     }
 
     @Override
