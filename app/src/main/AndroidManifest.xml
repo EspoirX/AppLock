@@ -28,10 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.FirstMainActivity"
-            android:label="应用锁"
-            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".module.pwd.CreatePwdActivity"
@@ -50,25 +46,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/unlock_activity_style"/>
         <activity
-            android:name=".activity.LockMainActivity"
-            android:label="应用锁"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.LockSettingActivity"
+            android:name=".module.setting.LockSettingActivity"
             android:label="设置"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.unlock.NumberSelfUnlockActivity"
-            android:label="解锁"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.unlock.NumberUnlockActivity"
-            android:excludeFromRecents="true"
-            android:label=""
-            android:launchMode="singleTask"
-            android:noHistory="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/unlock_activity_style"/>
         <activity
             android:name=".activity.lock.GestureCreateActivity"
             android:label="创建图案锁"

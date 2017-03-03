@@ -2,6 +2,7 @@ package com.lzx.lock.activity.lock;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lzx.lock.R;
@@ -10,6 +11,7 @@ import com.lzx.lock.bean.LockStage;
 import com.lzx.lock.mvp.contract.GestureCreateContract;
 import com.lzx.lock.mvp.p.GestureCreatePresenter;
 import com.lzx.lock.utils.LockPatternUtils;
+import com.lzx.lock.utils.SystemBarHelper;
 import com.lzx.lock.utils.ToastUtil;
 import com.lzx.lock.widget.LockPatternView;
 import com.lzx.lock.widget.LockPatternViewPattern;
@@ -33,7 +35,7 @@ public class GestureCreateActivity extends BaseActivity implements View.OnClickL
     private LockPatternUtils mLockPatternUtils;
     private LockPatternViewPattern mPatternViewPattern;
     private GestureCreatePresenter mGestureCreatePresenter;
-
+    private RelativeLayout mTopLayout;
 
     @Override
     public int getLayoutId() {
@@ -42,8 +44,10 @@ public class GestureCreateActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-        mLockTip = (TextView) findViewById(R.id.tv_lock_tip);
+        mLockTip = (TextView) findViewById(R.id.lock_tip);
         mLockPatternView = (LockPatternView) findViewById(R.id.lock_pattern_view);
+        mTopLayout = (RelativeLayout) findViewById(R.id.top_layout);
+        mTopLayout.setPadding(0, SystemBarHelper.getStatusBarHeight(this),0,0);
 
         mGestureCreatePresenter = new GestureCreatePresenter(this, this);
         initLockPatternView();

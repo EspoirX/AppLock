@@ -5,169 +5,167 @@
               android:background="@color/white"
               android:orientation="vertical">
 
-    <include layout="@layout/layout_toolbar"/>
+    <include
+        layout="@layout/layout_toolbar"
+        android:visibility="gone"/>
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/top_layout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
-        android:text="解锁模式"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp"/>
+        android:layout_height="wrap_content"
+        android:background="#EFEFF0">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:background="@color/line_color"/>
-
-
-    <TextView
-        android:id="@+id/lock_type_num"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:drawableRight="@drawable/lock_select"
-        android:gravity="center_vertical"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
-        android:text="数字"
-        android:textColor="@color/font_deep_gray"
-        android:textSize="16sp"/>
-
-    <TextView
-        android:id="@+id/lock_type_pattern"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:drawableRight="@drawable/lock_unselect"
-        android:gravity="center_vertical"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
-        android:text="图案"
-        android:textColor="@color/font_deep_gray"
-        android:textSize="16sp"/>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/line_color"/>
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
-        android:text="密码"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp"
-        android:id="@+id/textView"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:background="@color/line_color"/>
-
-    <TextView
-        android:id="@+id/btn_change_pwd"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/bg_white_clicked"
-        android:drawableRight="@drawable/arrow_more"
-        android:gravity="center_vertical"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
-        android:text="修改密码"
-        android:textColor="@color/font_deep_gray"
-        android:textSize="16sp"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/line_color"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
-        android:text="其他"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:background="@color/line_color"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_back_2"/>
 
         <TextView
-            android:id="@+id/btn_select_time"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/btn_back"
+            android:gravity="center"
+            android:text="设置"
+            android:textColor="#2c2c2c"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#CACACA"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:id="@+id/lock_title"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
             android:gravity="center_vertical"
-            android:paddingLeft="25dp"
-            android:text="延时加锁"
-            android:textColor="@color/font_deep_gray"
+            android:text="应用锁"
+            android:textColor="#2c2c2c"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/lock_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/lock_title"
+            android:gravity="center_vertical"
+            android:text="已开启，加锁应用打开时需要密码"/>
+
+        <CheckBox
+            android:id="@+id/switch_compat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:button="@drawable/bg_checkbox_lock"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="#DEDEDE"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lock_when"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/bg_white_clicked"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="锁定时机"
+            android:textColor="#2c2c2c"
             android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/lock_time"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingRight="15dp"
-            android:textColor="@color/font_light_gray"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="15dp"
+            android:drawableRight="@drawable/arrow_more"
+            android:text="锁屏后"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="#DEDEDE"
+            android:textColor="#2c2c2c"
             android:textSize="16sp"/>
+    </RelativeLayout>
 
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/switch_allow_exit"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginRight="15dp"/>
-
-    </LinearLayout>
-
-    <android.support.v7.widget.SwitchCompat
-        android:id="@+id/switch_relock_screen"
+    <TextView
+        android:id="@+id/btn_change_pwd"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:paddingLeft="25dp"
-        android:paddingRight="15dp"
-        android:text="锁屏后加锁"
-        android:textColor="@color/font_deep_gray"
+        android:layout_height="55dp"
+        android:background="@drawable/bg_white_clicked"
+        android:drawableRight="@drawable/arrow_more"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="更改密码"
+        android:textColor="#2c2c2c"
         android:textSize="16sp"/>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/line_color"/>
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#DEDEDE"/>
 
+    <TextView
+        android:id="@+id/is_show_path"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/bg_white_clicked"
+        android:drawableRight="@drawable/arrow_more"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="显示图案"
+        android:textColor="#2c2c2c"
+        android:textSize="16sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#DEDEDE"/>
 
     <TextView
         android:id="@+id/about_me"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
+        android:background="@drawable/bg_white_clicked"
+        android:drawableRight="@drawable/arrow_more"
         android:gravity="center_vertical"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:text="关于我"
-        android:textColor="@color/font_deep_gray"
+        android:textColor="#2c2c2c"
         android:textSize="16sp"/>
 
     <View

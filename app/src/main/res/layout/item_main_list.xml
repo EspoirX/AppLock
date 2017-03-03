@@ -16,19 +16,21 @@
         android:id="@+id/app_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toLeftOf="@+id/checkbox"
+        android:layout_toLeftOf="@+id/switch_compat"
         android:layout_toRightOf="@+id/app_icon"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:textSize="16sp"/>
 
-    <android.support.v7.widget.SwitchCompat
+    <CheckBox
         android:id="@+id/switch_compat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="12dp"/>
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="12dp"
+        android:button="@drawable/bg_checkbox_lock"/>
 
     <View
         android:layout_width="match_parent"

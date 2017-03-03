@@ -1,18 +1,21 @@
 package com.lzx.lock.module.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.widget.EditText;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.lzx.lock.R;
 import com.lzx.lock.base.BaseActivity;
 import com.lzx.lock.bean.CommLockInfo;
+import com.lzx.lock.module.setting.LockSettingActivity;
 import com.lzx.lock.mvp.contract.LockMainContract;
 import com.lzx.lock.mvp.p.LockMainPresenter;
 import com.lzx.lock.utils.SystemBarHelper;
@@ -24,11 +27,11 @@ import java.util.List;
  * Created by xian on 2017/3/1.
  */
 
-public class MainActivity extends BaseActivity implements LockMainContract.View {
+public class MainActivity extends BaseActivity implements LockMainContract.View, View.OnClickListener {
 
     private RelativeLayout mTopLayout;
     private ImageView mBtnSetting;
-    private EditText mEditSearch;
+    private TextView mEditSearch;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private CommentPagerAdapter mPagerAdapter;
@@ -45,7 +48,7 @@ public class MainActivity extends BaseActivity implements LockMainContract.View 
     @Override
     protected void initViews(Bundle savedInstanceState) {
         mBtnSetting = (ImageView) findViewById(R.id.btn_setting);
-        mEditSearch = (EditText) findViewById(R.id.edit_search);
+        mEditSearch = (TextView) findViewById(R.id.edit_search);
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mTopLayout = (RelativeLayout) findViewById(R.id.top_layout);
@@ -53,7 +56,6 @@ public class MainActivity extends BaseActivity implements LockMainContract.View 
 
         mLockMainPresenter = new LockMainPresenter(this, this);
         mLockMainPresenter.loadAppInfo(this, true);
-
     }
 
     @Override
@@ -63,7 +65,7 @@ public class MainActivity extends BaseActivity implements LockMainContract.View 
 
     @Override
     protected void initAction() {
-
+        mBtnSetting.setOnClickListener(this);
     }
 
     @Override
@@ -86,6 +88,15 @@ public class MainActivity extends BaseActivity implements LockMainContract.View 
         mPagerAdapter = new CommentPagerAdapter(getSupportFragmentManager(), fragmentList, titles);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_setting:
+                startActivity(new Intent(this, LockSettingActivity.class));
+                break;
+        }
     }
 
     public class CommentPagerAdapter extends FragmentStatePagerAdapter {

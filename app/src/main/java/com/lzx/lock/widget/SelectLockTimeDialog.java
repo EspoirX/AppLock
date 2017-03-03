@@ -7,9 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.lzx.lock.R;
-import com.lzx.lock.activity.LockSettingActivity;
 import com.lzx.lock.adapter.SelectTimeAdapter;
+import com.lzx.lock.base.Constants;
 import com.lzx.lock.bean.LockAutoTime;
+import com.lzx.lock.module.setting.LockSettingActivity;
+import com.lzx.lock.utils.SpUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,9 +65,9 @@ public class SelectLockTimeDialog extends BaseDialog {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         String titleArray[] = context.getResources().getStringArray(R.array.lock_time_array);
-        Long timeArray[] = {15000L, 30000L, 60000L, 180000L, 300000L, 600000L, 1800000L};
+        Long timeArray[] = {15000L, 30000L, 60000L, 180000L, 300000L, 600000L, 1800000L, 0L};
         mTimeList = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < titleArray.length; i++) {
             LockAutoTime time = new LockAutoTime();
             time.setTitle(titleArray[i]);
             time.setTime(timeArray[i]);
@@ -76,7 +78,12 @@ public class SelectLockTimeDialog extends BaseDialog {
         mSelectTimeAdapter.setTitle(title);
         mSelectTimeAdapter.setListener(new SelectTimeAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(LockAutoTime info) {
+            public void onItemClick(LockAutoTime info, boolean isLast) {
+                if (isLast) {
+                    SpUtil.getInstance().putBoolean(Constants.LOCK_AUTO_SCREEN, true);
+                } else {
+                    SpUtil.getInstance().putBoolean(Constants.LOCK_AUTO_SCREEN, false);
+                }
                 Intent intent = new Intent();
                 intent.putExtra("info", info);
                 intent.setAction(LockSettingActivity.ON_ITEM_CLICK_ACTION);

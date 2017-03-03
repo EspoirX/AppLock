@@ -7,7 +7,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lzx.lock.R;
-import com.lzx.lock.activity.FirstMainActivity;
 import com.lzx.lock.base.BaseActivity;
 import com.lzx.lock.base.Constants;
 import com.lzx.lock.bean.CommLockInfo;
@@ -123,7 +122,7 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void gotoLockMainActivity() {
-        sendBroadcast(new Intent(FirstMainActivity.ACTION_FINISH));
+
         for (CommLockInfo pro : mLockList) {
             mLockInfoManager.lockCommApplication(pro.getPackageName());
         }

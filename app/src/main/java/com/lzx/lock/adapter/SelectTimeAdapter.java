@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lzx.lock.R;
@@ -46,13 +45,15 @@ public class SelectTimeAdapter extends RecyclerView.Adapter<SelectTimeAdapter.Vi
     @Override
     public void onBindViewHolder(SelectTimeAdapter.ViewHolder holder, final int position) {
         final LockAutoTime info = mTimeList.get(position);
-        holder.mIsSelect.setVisibility(View.GONE);
         holder.mItemTime.setText(info.getTitle());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listener!=null){
-                    listener.onItemClick(info);
+                if (listener != null) {
+                    if (position == mTimeList.size() - 1)
+                        listener.onItemClick(info, true);
+                    else
+                        listener.onItemClick(info, false);
                 }
             }
         });
@@ -66,17 +67,15 @@ public class SelectTimeAdapter extends RecyclerView.Adapter<SelectTimeAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mItemTime;
         public View mLine;
-        public ImageView mIsSelect;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mItemTime = (TextView) itemView.findViewById(R.id.item_time);
             mLine = itemView.findViewById(R.id.line);
-            mIsSelect = (ImageView) itemView.findViewById(R.id.ic_is_select);
         }
     }
 
     public interface OnItemClickListener {
-        void onItemClick(LockAutoTime info);
+        void onItemClick(LockAutoTime info, boolean isLast);
     }
 }

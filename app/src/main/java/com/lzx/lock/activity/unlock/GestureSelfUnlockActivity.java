@@ -2,14 +2,16 @@ package com.lzx.lock.activity.unlock;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.RelativeLayout;
 
 import com.lzx.lock.R;
-import com.lzx.lock.activity.LockMainActivity;
-import com.lzx.lock.activity.LockSettingActivity;
 import com.lzx.lock.base.BaseActivity;
 import com.lzx.lock.base.Constants;
 import com.lzx.lock.db.CommLockInfoManager;
+import com.lzx.lock.module.main.MainActivity;
+import com.lzx.lock.module.setting.LockSettingActivity;
 import com.lzx.lock.utils.LockPatternUtils;
+import com.lzx.lock.utils.SystemBarHelper;
 import com.lzx.lock.widget.LockPatternView;
 import com.lzx.lock.widget.LockPatternViewPattern;
 
@@ -21,7 +23,6 @@ import java.util.List;
 
 public class GestureSelfUnlockActivity extends BaseActivity {
 
-
     private LockPatternView mLockPatternView;
     private LockPatternUtils mLockPatternUtils;
     private LockPatternViewPattern mPatternViewPattern;
@@ -29,6 +30,7 @@ public class GestureSelfUnlockActivity extends BaseActivity {
     private String actionFrom;//按返回键的操作
     private String pkgName; //解锁应用的包名
     private CommLockInfoManager mManager;
+    private RelativeLayout mTopLayout;
 
     @Override
     public int getLayoutId() {
@@ -38,6 +40,8 @@ public class GestureSelfUnlockActivity extends BaseActivity {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         mLockPatternView = (LockPatternView) findViewById(R.id.unlock_lock_view);
+        mTopLayout = (RelativeLayout) findViewById(R.id.top_layout);
+        mTopLayout.setPadding(0, SystemBarHelper.getStatusBarHeight(this),0,0);
     }
 
     @Override
@@ -66,7 +70,7 @@ public class GestureSelfUnlockActivity extends BaseActivity {
                 if (mLockPatternUtils.checkPattern(pattern)) { //解锁成功,更改数据库状态
                     mLockPatternView.setDisplayMode(LockPatternView.DisplayMode.Correct);
                     if (actionFrom.equals(Constants.LOCK_FROM_LOCK_MAIN_ACITVITY)) {
-                        Intent intent = new Intent(GestureSelfUnlockActivity.this, LockMainActivity.class);
+                        Intent intent = new Intent(GestureSelfUnlockActivity.this, MainActivity.class);
                         startActivity(intent);
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         finish();

@@ -4,10 +4,10 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -49,20 +49,37 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     }
 
     @Override
-    public void onBindViewHolder(MainViewHolder holder, int position) {
+    public void onBindViewHolder(final MainViewHolder holder, final int position) {
         final CommLockInfo lockInfo = mLockInfos.get(position);
         initData(holder.mAppName, holder.mSwitchCompat, holder.mAppIcon, lockInfo);
-
+        holder.mSwitchCompat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeItemLockStatus(holder.mSwitchCompat, lockInfo, position);
+            }
+        });
     }
 
     /**
      * 初始化数据
      */
-    private void initData(TextView tvAppName, SwitchCompat switchCompat, ImageView mAppIcon, CommLockInfo lockInfo) {
+    private void initData(TextView tvAppName, CheckBox switchCompat, ImageView mAppIcon, CommLockInfo lockInfo) {
         tvAppName.setText(packageManager.getApplicationLabel(lockInfo.getAppInfo()));
         switchCompat.setChecked(lockInfo.isLocked());
         ApplicationInfo appInfo = lockInfo.getAppInfo();
         mAppIcon.setImageDrawable(packageManager.getApplicationIcon(appInfo));
+    }
+
+    public void changeItemLockStatus(CheckBox checkBox, CommLockInfo info, int position) {
+        if (checkBox.isChecked()) {
+            info.setLocked(true);
+            mLockInfoManager.setIsUnLockThisApp(info.getPackageName(), false);
+            mLockInfoManager.lockCommApplication(info.getPackageName());
+        } else {
+            info.setLocked(false);
+            mLockInfoManager.unlockCommApplication(info.getPackageName());
+        }
+        notifyItemChanged(position);
     }
 
     @Override
@@ -73,7 +90,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     public class MainViewHolder extends RecyclerView.ViewHolder {
         private ImageView mAppIcon;
         private TextView mAppName, mLockAppType;
-        private SwitchCompat mSwitchCompat;
+        private CheckBox mSwitchCompat;
         private LinearLayout mHeaderLayout;
 
         public MainViewHolder(View itemView) {
@@ -81,7 +98,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             mHeaderLayout = (LinearLayout) itemView.findViewById(R.id.top_item_layout);
             mAppIcon = (ImageView) itemView.findViewById(R.id.app_icon);
             mAppName = (TextView) itemView.findViewById(R.id.app_name);
-            mSwitchCompat = (SwitchCompat) itemView.findViewById(R.id.switch_compat);
+            mSwitchCompat = (CheckBox) itemView.findViewById(R.id.switch_compat);
             mLockAppType = (TextView) itemView.findViewById(R.id.lock_app_type);
         }
     }

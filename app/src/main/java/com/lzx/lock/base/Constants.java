@@ -14,7 +14,6 @@ public class Constants {
     public static final String LOCK_IS_INIT_DB = "lock_is_init_db"; //是否初始化了数据库表
     public static final String APP_PACKAGE_NAME = "com.lzx.lock"; //包名
     public static final String LOCK_IS_HIDE_LINE = "lock_is_hide_line"; //是否隐藏路径
-    public static final String LOCK_TYPE = "lock_type"; //锁的类型 0 是图形 1 是数字
     public static final String LOCK_PWD = "lock_pwd";//应用锁密码
     public static final String LOCK_IS_FIRST_LOCK = "is_lock"; //是否加过锁
     public static final String LOCK_AUTO_SCREEN = "lock_auto_screen"; //是否在手机屏幕关闭后再次锁定

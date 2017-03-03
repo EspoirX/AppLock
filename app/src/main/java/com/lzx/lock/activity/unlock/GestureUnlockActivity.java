@@ -16,10 +16,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lzx.lock.R;
-import com.lzx.lock.activity.LockMainActivity;
 import com.lzx.lock.base.BaseActivity;
 import com.lzx.lock.base.Constants;
 import com.lzx.lock.db.CommLockInfoManager;
+import com.lzx.lock.module.main.MainActivity;
 import com.lzx.lock.service.LockService;
 import com.lzx.lock.utils.LockPatternUtils;
 import com.lzx.lock.utils.LockUtil;
@@ -97,7 +97,7 @@ public class GestureUnlockActivity extends BaseActivity implements View.OnClickL
 
         mGestureUnlockReceiver = new GestureUnlockReceiver();
         IntentFilter filter = new IntentFilter();
-        filter.addAction(UnLockMenuPopWindow.UPDATE_LOCK_VIEW);
+      //  filter.addAction(UnLockMenuPopWindow.UPDATE_LOCK_VIEW);
         filter.addAction(FINISH_UNLOCK_THIS_APP);
         registerReceiver(mGestureUnlockReceiver, filter);
 
@@ -147,7 +147,7 @@ public class GestureUnlockActivity extends BaseActivity implements View.OnClickL
                 if (mLockPatternUtils.checkPattern(pattern)) { //解锁成功,更改数据库状态
                     mLockPatternView.setDisplayMode(LockPatternView.DisplayMode.Correct);
                     if (actionFrom.equals(Constants.LOCK_FROM_LOCK_MAIN_ACITVITY)) {
-                        startActivity(new Intent(GestureUnlockActivity.this, LockMainActivity.class));
+                        startActivity(new Intent(GestureUnlockActivity.this, MainActivity.class));
                         finish();
                     } else {
                         SpUtil.getInstance().putLong(Constants.LOCK_CURR_MILLISENCONS, System.currentTimeMillis()); //记录解锁时间
@@ -204,7 +204,7 @@ public class GestureUnlockActivity extends BaseActivity implements View.OnClickL
         } else if (actionFrom.equals(Constants.LOCK_FROM_LOCK_MAIN_ACITVITY)) {
             finish();
         } else {
-            startActivity(new Intent(this, LockMainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
     }
     
@@ -227,9 +227,10 @@ public class GestureUnlockActivity extends BaseActivity implements View.OnClickL
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action.equals(UnLockMenuPopWindow.UPDATE_LOCK_VIEW)) {
-                mLockPatternView.initRes();
-            } else if (action.equals(FINISH_UNLOCK_THIS_APP)) {
+//            if (action.equals(UnLockMenuPopWindow.UPDATE_LOCK_VIEW)) {
+//                mLockPatternView.initRes();
+//            } else
+            if (action.equals(FINISH_UNLOCK_THIS_APP)) {
                 finish();
             }
         }

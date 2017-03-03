@@ -17,7 +17,6 @@ import android.text.TextUtils;
 
 import com.lzx.lock.LockApp;
 import com.lzx.lock.activity.unlock.GestureUnlockActivity;
-import com.lzx.lock.activity.unlock.NumberUnlockActivity;
 import com.lzx.lock.base.Constants;
 import com.lzx.lock.db.CommLockInfoManager;
 import com.lzx.lock.utils.SpUtil;
@@ -279,13 +278,8 @@ public class LockService extends IntentService {
      */
     private void passwordLock(String packageName) {
         LockApp.getInstance().clearAllActivity();
-        int lockType = SpUtil.getInstance().getInt(Constants.LOCK_TYPE);
-        Intent intent;
-        if (lockType == 1) {
-            intent = new Intent(this, NumberUnlockActivity.class);
-        } else {
-            intent = new Intent(this, GestureUnlockActivity.class);
-        }
+        Intent intent = new Intent(this, GestureUnlockActivity.class);
+
         intent.putExtra(Constants.LOCK_PACKAGE_NAME, packageName);
         intent.putExtra(Constants.LOCK_FROM, Constants.LOCK_FROM_FINISH);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
