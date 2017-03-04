@@ -9,9 +9,7 @@ import android.widget.TextView;
 import com.lzx.lock.R;
 import com.lzx.lock.base.BaseActivity;
 import com.lzx.lock.base.Constants;
-import com.lzx.lock.bean.CommLockInfo;
 import com.lzx.lock.bean.LockStage;
-import com.lzx.lock.db.CommLockInfoManager;
 import com.lzx.lock.module.main.MainActivity;
 import com.lzx.lock.mvp.contract.GestureCreateContract;
 import com.lzx.lock.mvp.p.GestureCreatePresenter;
@@ -22,7 +20,6 @@ import com.lzx.lock.utils.SystemBarHelper;
 import com.lzx.lock.widget.LockPatternView;
 import com.lzx.lock.widget.LockPatternViewPattern;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,21 +29,15 @@ import java.util.List;
 public class CreatePwdActivity extends BaseActivity implements View.OnClickListener,
         GestureCreateContract.View {
 
-    private ArrayList<CommLockInfo> mLockList; //保存的加锁应用
-    private ArrayList<CommLockInfo> mUnLockList; //保存的没加锁应用
     private TextView mLockTip;
     private LockPatternView mLockPatternView;
     private TextView mBtnReset;
-    private Bundle savedInstanceState;
     //图案锁相关
     private LockStage mUiStage = LockStage.Introduction;
     protected List<LockPatternView.Cell> mChosenPattern = null; //密码
-    private static final String KEY_PATTERN_CHOICE = "chosenPattern";
-    private static final String KEY_UI_STAGE = "uiStage";
     private LockPatternUtils mLockPatternUtils;
     private LockPatternViewPattern mPatternViewPattern;
     private GestureCreatePresenter mGestureCreatePresenter;
-    private CommLockInfoManager mLockInfoManager;
     private RelativeLayout mTopLayout;
 
     @Override
@@ -56,7 +47,6 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-        this.savedInstanceState = savedInstanceState;
         mLockPatternView = (LockPatternView) findViewById(R.id.lock_pattern_view);
         mLockTip = (TextView) findViewById(R.id.lock_tip);
         mBtnReset = (TextView) findViewById(R.id.btn_reset);
@@ -66,27 +56,14 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void initData() {
-        mLockList = getIntent().getParcelableArrayListExtra("lock_list");
-        mUnLockList = getIntent().getParcelableArrayListExtra("unlock_list");
-        mLockInfoManager = new CommLockInfoManager(this);
         mGestureCreatePresenter = new GestureCreatePresenter(this, this);
         initLockPatternView();
-        if (savedInstanceState == null) {
-            mGestureCreatePresenter.updateStage(LockStage.Introduction);
-        } else {
-            final String patternString = savedInstanceState.getString(KEY_PATTERN_CHOICE);
-            if (patternString != null) {
-                mChosenPattern = LockPatternUtils.stringToPattern(patternString);
-            }
-            mGestureCreatePresenter.updateStage(LockStage.values()[savedInstanceState.getInt(KEY_UI_STAGE)]);
-        }
     }
 
     /**
      * 初始化锁屏控件
      */
     private void initLockPatternView() {
-        mLockPatternView.setLineColorRight(0x66ffffff);
         mLockPatternUtils = new LockPatternUtils(this);
         mPatternViewPattern = new LockPatternViewPattern(mLockPatternView);
         mPatternViewPattern.setPatternListener(new LockPatternViewPattern.onPatternListener() {
@@ -122,15 +99,7 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void gotoLockMainActivity() {
-
-        for (CommLockInfo pro : mLockList) {
-            mLockInfoManager.lockCommApplication(pro.getPackageName());
-        }
-        for (CommLockInfo pro : mUnLockList) {
-            mLockInfoManager.unlockCommApplication(pro.getPackageName());
-        }
         SpUtil.getInstance().putBoolean(Constants.LOCK_STATE, true); //开启应用锁开关
-
         startService(new Intent(this, LockService.class));
         SpUtil.getInstance().putBoolean(Constants.LOCK_IS_FIRST_LOCK, false);
         startActivity(new Intent(this, MainActivity.class));

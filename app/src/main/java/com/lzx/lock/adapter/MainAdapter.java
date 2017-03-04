@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lzx.lock.R;
@@ -73,7 +72,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     public void changeItemLockStatus(CheckBox checkBox, CommLockInfo info, int position) {
         if (checkBox.isChecked()) {
             info.setLocked(true);
-            mLockInfoManager.setIsUnLockThisApp(info.getPackageName(), false);
             mLockInfoManager.lockCommApplication(info.getPackageName());
         } else {
             info.setLocked(false);
@@ -89,17 +87,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
     public class MainViewHolder extends RecyclerView.ViewHolder {
         private ImageView mAppIcon;
-        private TextView mAppName, mLockAppType;
+        private TextView mAppName;
         private CheckBox mSwitchCompat;
-        private LinearLayout mHeaderLayout;
 
         public MainViewHolder(View itemView) {
             super(itemView);
-            mHeaderLayout = (LinearLayout) itemView.findViewById(R.id.top_item_layout);
             mAppIcon = (ImageView) itemView.findViewById(R.id.app_icon);
             mAppName = (TextView) itemView.findViewById(R.id.app_name);
             mSwitchCompat = (CheckBox) itemView.findViewById(R.id.switch_compat);
-            mLockAppType = (TextView) itemView.findViewById(R.id.lock_app_type);
         }
     }
 }

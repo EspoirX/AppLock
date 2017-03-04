@@ -12,7 +12,7 @@ import com.lzx.lock.R;
 import com.lzx.lock.activity.unlock.GestureSelfUnlockActivity;
 import com.lzx.lock.base.BaseActivity;
 import com.lzx.lock.base.Constants;
-import com.lzx.lock.module.main.MainActivity;
+import com.lzx.lock.module.pwd.CreatePwdActivity;
 import com.lzx.lock.service.LoadAppListService;
 import com.lzx.lock.service.LockService;
 import com.lzx.lock.utils.AppUtils;
@@ -86,7 +86,7 @@ public class SplashActivity extends BaseActivity {
                 }
             });
         } else {
-            gotoFirstMainActivity();
+            gotoCreatePwdActivity();
         }
     }
 
@@ -95,7 +95,7 @@ public class SplashActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_ACTION_USAGE_ACCESS_SETTINGS) {
             if (LockUtil.isStatAccessPermissionSet(SplashActivity.this)) {
-                gotoFirstMainActivity();
+                gotoCreatePwdActivity();
             } else {
                 ToastUtil.showToast("没有权限");
                 finish();
@@ -103,15 +103,12 @@ public class SplashActivity extends BaseActivity {
         }
     }
 
-    private void gotoFirstMainActivity() {
-        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-        intent.putExtra(Constants.LOCK_PACKAGE_NAME, Constants.APP_PACKAGE_NAME); //传自己的包名
-        intent.putExtra(Constants.LOCK_FROM, Constants.LOCK_FROM_LOCK_MAIN_ACITVITY);
+    private void gotoCreatePwdActivity() {
+        Intent intent = new Intent(SplashActivity.this, CreatePwdActivity.class);
         startActivity(intent);
         finish();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
-
 
     @Override
     protected void initAction() {

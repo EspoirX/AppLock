@@ -59,9 +59,6 @@ public class GestureSelfUnlockActivity extends BaseActivity {
      * 初始化解锁控件
      */
     private void initLockPatternView() {
-        mLockPatternView.setGesturePatternItemBg(R.drawable.gesture_pattern_item_bg_2_1);
-        mLockPatternView.setGesturePatternSelected(R.drawable.gesture_pattern_selected_2);
-        mLockPatternView.setGesturePatternSelectedWrong(R.drawable.gesture_pattern_selected_wrong_2);
         mLockPatternUtils = new LockPatternUtils(this);
         mPatternViewPattern = new LockPatternViewPattern(mLockPatternView);
         mPatternViewPattern.setPatternListener(new LockPatternViewPattern.onPatternListener() {
