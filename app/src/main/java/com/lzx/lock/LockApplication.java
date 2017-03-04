@@ -1,6 +1,6 @@
 package com.lzx.lock;
 
-import com.lzx.lock.activity.unlock.GestureUnlockActivity;
+import com.lzx.lock.module.lock.GestureUnlockActivity;
 import com.lzx.lock.base.BaseActivity;
 import com.lzx.lock.utils.SpUtil;
 
@@ -13,9 +13,9 @@ import java.util.List;
  * Created by xian on 2017/2/17.
  */
 
-public class LockApp extends LitePalApplication {
+public class LockApplication extends LitePalApplication {
 
-    private static LockApp application;
+    private static LockApplication application;
     private static List<BaseActivity> activityList; //acticity管理
 
     @Override
@@ -26,7 +26,7 @@ public class LockApp extends LitePalApplication {
         activityList = new ArrayList<>();
     }
 
-    public static LockApp getInstance() {
+    public static LockApplication getInstance() {
         return application;
     }
 

@@ -5,7 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 
-import com.lzx.lock.base.Constants;
+import com.lzx.lock.base.AppConstants;
 import com.lzx.lock.bean.CommLockInfo;
 import com.lzx.lock.db.CommLockInfoManager;
 import com.lzx.lock.mvp.contract.MainContract;
@@ -89,7 +89,7 @@ public class MainPresenter implements MainContract.Presenter {
                     infoIterator.remove();
                 }
             }
-            SpUtil.getInstance().putInt(Constants.LOCK_FAVITER_NUM, favoriteNum);
+            SpUtil.getInstance().putInt(AppConstants.LOCK_FAVITER_NUM, favoriteNum);
 
             if (isSort) {
                 List<CommLockInfo> sysList = new ArrayList<>();
@@ -103,8 +103,8 @@ public class MainPresenter implements MainContract.Presenter {
                         userAppNum++;
                     }
                 }
-                SpUtil.getInstance().putInt(Constants.LOCK_SYS_APP_NUM, sysAppNum);
-                SpUtil.getInstance().putInt(Constants.LOCK_USER_APP_NUM, userAppNum);
+                SpUtil.getInstance().putInt(AppConstants.LOCK_SYS_APP_NUM, sysAppNum);
+                SpUtil.getInstance().putInt(AppConstants.LOCK_USER_APP_NUM, userAppNum);
                 commLockInfos.clear();
                 commLockInfos.addAll(sysList);
                 commLockInfos.addAll(userList);

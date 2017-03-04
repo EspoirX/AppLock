@@ -1,4 +1,4 @@
-package com.lzx.lock.activity.unlock;
+package com.lzx.lock.module.lock;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.lzx.lock.R;
 import com.lzx.lock.base.BaseActivity;
-import com.lzx.lock.base.Constants;
+import com.lzx.lock.base.AppConstants;
 import com.lzx.lock.db.CommLockInfoManager;
 import com.lzx.lock.module.main.MainActivity;
 import com.lzx.lock.service.LockService;
@@ -82,9 +82,9 @@ public class GestureUnlockActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void initData() {
         //获取解锁应用的包名
-        pkgName = getIntent().getStringExtra(Constants.LOCK_PACKAGE_NAME);
+        pkgName = getIntent().getStringExtra(AppConstants.LOCK_PACKAGE_NAME);
         //获取按返回键的操作
-        actionFrom = getIntent().getStringExtra(Constants.LOCK_FROM);
+        actionFrom = getIntent().getStringExtra(AppConstants.LOCK_FROM);
         //初始化
         packageManager = getPackageManager();
 
@@ -146,12 +146,12 @@ public class GestureUnlockActivity extends BaseActivity implements View.OnClickL
             public void onPatternDetected(List<LockPatternView.Cell> pattern) {
                 if (mLockPatternUtils.checkPattern(pattern)) { //解锁成功,更改数据库状态
                     mLockPatternView.setDisplayMode(LockPatternView.DisplayMode.Correct);
-                    if (actionFrom.equals(Constants.LOCK_FROM_LOCK_MAIN_ACITVITY)) {
+                    if (actionFrom.equals(AppConstants.LOCK_FROM_LOCK_MAIN_ACITVITY)) {
                         startActivity(new Intent(GestureUnlockActivity.this, MainActivity.class));
                         finish();
                     } else {
-                        SpUtil.getInstance().putLong(Constants.LOCK_CURR_MILLISENCONS, System.currentTimeMillis()); //记录解锁时间
-                        SpUtil.getInstance().putString(Constants.LOCK_LAST_LOAD_PKG_NAME, pkgName);//记录解锁包名
+                        SpUtil.getInstance().putLong(AppConstants.LOCK_CURR_MILLISENCONS, System.currentTimeMillis()); //记录解锁时间
+                        SpUtil.getInstance().putString(AppConstants.LOCK_LAST_LOAD_PKG_NAME, pkgName);//记录解锁包名
 
                         //发送最后解锁的时间给应用锁服务
                         Intent intent = new Intent(LockService.UNLOCK_ACTION);
@@ -199,9 +199,9 @@ public class GestureUnlockActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onBackPressed() {
-        if (actionFrom.equals(Constants.LOCK_FROM_FINISH)) {
+        if (actionFrom.equals(AppConstants.LOCK_FROM_FINISH)) {
             LockUtil.goHome(this);
-        } else if (actionFrom.equals(Constants.LOCK_FROM_LOCK_MAIN_ACITVITY)) {
+        } else if (actionFrom.equals(AppConstants.LOCK_FROM_LOCK_MAIN_ACITVITY)) {
             finish();
         } else {
             startActivity(new Intent(this, MainActivity.class));

@@ -13,10 +13,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lzx.lock.R;
-import com.lzx.lock.activity.AboutMeActivity;
-import com.lzx.lock.activity.lock.GestureCreateActivity;
+import com.lzx.lock.module.about.AboutMeActivity;
+import com.lzx.lock.module.lock.GestureCreateActivity;
 import com.lzx.lock.base.BaseActivity;
-import com.lzx.lock.base.Constants;
+import com.lzx.lock.base.AppConstants;
 import com.lzx.lock.bean.LockAutoTime;
 import com.lzx.lock.service.LockService;
 import com.lzx.lock.utils.SpUtil;
@@ -31,9 +31,9 @@ import com.lzx.lock.widget.SelectLockTimeDialog;
 
 public class LockSettingActivity extends BaseActivity implements View.OnClickListener
         , DialogInterface.OnDismissListener {
-    private TextView mBtnAbout, mLockTime, mBtnChangePwd, mIsShowPath, mLockTip;
+    private TextView mBtnAbout, mLockTime, mBtnChangePwd, mIsShowPath, mLockTip, mLockScreenSwitch;
     private CheckBox mLockSwitch;
-    private RelativeLayout mLockWhen;
+    private RelativeLayout mLockWhen, mLockScreen;
     private LockSettingReceiver mLockSettingReceiver;
     public static final String ON_ITEM_CLICK_ACTION = "on_item_click_action";
     private SelectLockTimeDialog dialog;
@@ -52,8 +52,10 @@ public class LockSettingActivity extends BaseActivity implements View.OnClickLis
         mBtnAbout = (TextView) findViewById(R.id.about_me);
         mLockSwitch = (CheckBox) findViewById(R.id.switch_compat);
         mLockWhen = (RelativeLayout) findViewById(R.id.lock_when);
+        mLockScreen = (RelativeLayout) findViewById(R.id.lock_screen);
         mIsShowPath = (TextView) findViewById(R.id.is_show_path);
         mLockTip = (TextView) findViewById(R.id.lock_tip);
+        mLockScreenSwitch = (TextView) findViewById(R.id.lock_screen_switch);
         mTopLayout = (RelativeLayout) findViewById(R.id.top_layout);
         mTopLayout.setPadding(0, SystemBarHelper.getStatusBarHeight(this), 0, 0);
     }
@@ -66,21 +68,27 @@ public class LockSettingActivity extends BaseActivity implements View.OnClickLis
         registerReceiver(mLockSettingReceiver, filter);
         dialog = new SelectLockTimeDialog(this, "");
         dialog.setOnDismissListener(this);
-        boolean isLockOpen = SpUtil.getInstance().getBoolean(Constants.LOCK_STATE);
+        boolean isLockOpen = SpUtil.getInstance().getBoolean(AppConstants.LOCK_STATE);
         mLockSwitch.setChecked(isLockOpen);
+
+        boolean isLockAutoScreen = SpUtil.getInstance().getBoolean(AppConstants.LOCK_AUTO_SCREEN, false);
+        mLockScreenSwitch.setText(isLockAutoScreen ? "开" : "关");
+
+        mLockTime.setText(SpUtil.getInstance().getString(AppConstants.LOCK_APART_TITLE,"立即"));
     }
 
     @Override
     protected void initAction() {
         mBtnChangePwd.setOnClickListener(this);
         mBtnAbout.setOnClickListener(this);
-
         mLockWhen.setOnClickListener(this);
+        mLockScreen.setOnClickListener(this);
         mIsShowPath.setOnClickListener(this);
+        mLockScreenSwitch.setOnClickListener(this);
         mLockSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                SpUtil.getInstance().putBoolean(Constants.LOCK_STATE, b);
+                SpUtil.getInstance().putBoolean(AppConstants.LOCK_STATE, b);
                 Intent intent = new Intent(LockSettingActivity.this, LockService.class);
                 if (b) {
                     mLockTip.setText("已开启，加锁应用打开时需要密码");
@@ -106,20 +114,29 @@ public class LockSettingActivity extends BaseActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.lock_when:
-                String title = SpUtil.getInstance().getString(Constants.LOCK_APART_TITLE, "");
+                String title = SpUtil.getInstance().getString(AppConstants.LOCK_APART_TITLE, "");
                 dialog.setTitle(title);
                 dialog.show();
                 break;
             case R.id.is_show_path:
-                boolean ishideline = SpUtil.getInstance().getBoolean(Constants.LOCK_IS_HIDE_LINE, false);
+                boolean ishideline = SpUtil.getInstance().getBoolean(AppConstants.LOCK_IS_HIDE_LINE, false);
                 if (ishideline) {
-                    SpUtil.getInstance().putBoolean(Constants.LOCK_IS_HIDE_LINE, false);
+                    SpUtil.getInstance().putBoolean(AppConstants.LOCK_IS_HIDE_LINE, false);
                     ToastUtil.showToast("路径已显示");
                 } else {
-                    SpUtil.getInstance().putBoolean(Constants.LOCK_IS_HIDE_LINE, true);
+                    SpUtil.getInstance().putBoolean(AppConstants.LOCK_IS_HIDE_LINE, true);
                     ToastUtil.showToast("路径已隐藏");
                 }
-                //  sendBroadcast(new Intent(UPDATE_LOCK_VIEW));
+                break;
+            case R.id.lock_screen:
+                boolean isLockAutoScreen = SpUtil.getInstance().getBoolean(AppConstants.LOCK_AUTO_SCREEN, false);
+                if (isLockAutoScreen) {
+                    SpUtil.getInstance().putBoolean(AppConstants.LOCK_AUTO_SCREEN, false);
+                    mLockScreenSwitch.setText("关");
+                } else {
+                    SpUtil.getInstance().putBoolean(AppConstants.LOCK_AUTO_SCREEN, true);
+                    mLockScreenSwitch.setText("开");
+                }
                 break;
         }
     }
@@ -142,7 +159,6 @@ public class LockSettingActivity extends BaseActivity implements View.OnClickLis
 
     }
 
-    //
     private class LockSettingReceiver extends BroadcastReceiver {
 
         @Override
@@ -150,10 +166,18 @@ public class LockSettingActivity extends BaseActivity implements View.OnClickLis
             String action = intent.getAction();
             if (action.equals(ON_ITEM_CLICK_ACTION)) {
                 LockAutoTime info = intent.getParcelableExtra("info");
-                mLockTime.setText(info.getTitle());
-                SpUtil.getInstance().putString(Constants.LOCK_APART_TITLE, info.getTitle());
-                SpUtil.getInstance().putLong(Constants.LOCK_APART_MILLISENCONS, info.getTime());
-                SpUtil.getInstance().putBoolean(Constants.LOCK_AUTO_SCREEN_TIME, true);
+                boolean isLast = intent.getBooleanExtra("isLast", true);
+                if (isLast) {
+                    mLockTime.setText(info.getTitle());
+                    SpUtil.getInstance().putString(AppConstants.LOCK_APART_TITLE, info.getTitle());
+                    SpUtil.getInstance().putLong(AppConstants.LOCK_APART_MILLISENCONS, 0L);
+                    SpUtil.getInstance().putBoolean(AppConstants.LOCK_AUTO_SCREEN_TIME, false);
+                } else {
+                    mLockTime.setText(info.getTitle());
+                    SpUtil.getInstance().putString(AppConstants.LOCK_APART_TITLE, info.getTitle());
+                    SpUtil.getInstance().putLong(AppConstants.LOCK_APART_MILLISENCONS, info.getTime());
+                    SpUtil.getInstance().putBoolean(AppConstants.LOCK_AUTO_SCREEN_TIME, true);
+                }
                 dialog.dismiss();
             }
         }

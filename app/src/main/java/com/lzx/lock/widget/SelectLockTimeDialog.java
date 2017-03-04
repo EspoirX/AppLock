@@ -8,10 +8,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.lzx.lock.R;
 import com.lzx.lock.adapter.SelectTimeAdapter;
-import com.lzx.lock.base.Constants;
 import com.lzx.lock.bean.LockAutoTime;
 import com.lzx.lock.module.setting.LockSettingActivity;
-import com.lzx.lock.utils.SpUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,13 +77,9 @@ public class SelectLockTimeDialog extends BaseDialog {
         mSelectTimeAdapter.setListener(new SelectTimeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(LockAutoTime info, boolean isLast) {
-                if (isLast) {
-                    SpUtil.getInstance().putBoolean(Constants.LOCK_AUTO_SCREEN, true);
-                } else {
-                    SpUtil.getInstance().putBoolean(Constants.LOCK_AUTO_SCREEN, false);
-                }
                 Intent intent = new Intent();
                 intent.putExtra("info", info);
+                intent.putExtra("isLast", isLast);
                 intent.setAction(LockSettingActivity.ON_ITEM_CLICK_ACTION);
                 context.sendBroadcast(intent);
             }

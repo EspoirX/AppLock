@@ -45,7 +45,7 @@
         <item>5 分钟</item>
         <item>10 分钟</item>
         <item>30 分钟</item>
-        <item>锁屏后立即加锁</item>
+        <item>立即</item>
     </string-array>
 
     <string name="dialog_tip">你的系统大于等于5.0，我们需要获取 “查看应用使用情况” 权限

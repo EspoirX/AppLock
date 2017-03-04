@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EFEFF0">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_back_2"/>
+
+        <TextView
+            android:id="@+id/search_title"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/btn_back"
+            android:gravity="center"
+            android:text="搜索"
+            android:textColor="#2c2c2c"
+            android:textSize="14sp"/>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/search_title"
+            android:layout_marginTop="10dp"
+            android:background="#CACACA"/>
+
+        <EditText
+            android:id="@+id/edit_search"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/line"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_frame_search"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="10dp"
+            android:hint="搜索应用"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColorHint="#9F9F9F"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+</LinearLayout>

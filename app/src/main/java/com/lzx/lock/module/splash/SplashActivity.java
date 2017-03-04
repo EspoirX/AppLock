@@ -9,9 +9,9 @@ import android.provider.Settings;
 import android.widget.ImageView;
 
 import com.lzx.lock.R;
-import com.lzx.lock.activity.unlock.GestureSelfUnlockActivity;
+import com.lzx.lock.module.lock.GestureSelfUnlockActivity;
 import com.lzx.lock.base.BaseActivity;
-import com.lzx.lock.base.Constants;
+import com.lzx.lock.base.AppConstants;
 import com.lzx.lock.module.pwd.CreatePwdActivity;
 import com.lzx.lock.service.LoadAppListService;
 import com.lzx.lock.service.LockService;
@@ -46,7 +46,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void initData() {
         startService(new Intent(this, LoadAppListService.class));
-        if (SpUtil.getInstance().getBoolean(Constants.LOCK_STATE, false)) {
+        if (SpUtil.getInstance().getBoolean(AppConstants.LOCK_STATE, false)) {
             startService(new Intent(this, LockService.class));
         }
         animator = ObjectAnimator.ofFloat(mImgSplash, "alpha", 0.5f, 1);
@@ -56,13 +56,13 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                boolean isFirstLock = SpUtil.getInstance().getBoolean(Constants.LOCK_IS_FIRST_LOCK, true);
+                boolean isFirstLock = SpUtil.getInstance().getBoolean(AppConstants.LOCK_IS_FIRST_LOCK, true);
                 if (isFirstLock) { //如果第一次
                     showDialog();
                 } else {
                     Intent intent = new Intent(SplashActivity.this, GestureSelfUnlockActivity.class);
-                    intent.putExtra(Constants.LOCK_PACKAGE_NAME, Constants.APP_PACKAGE_NAME); //传自己的包名
-                    intent.putExtra(Constants.LOCK_FROM, Constants.LOCK_FROM_LOCK_MAIN_ACITVITY);
+                    intent.putExtra(AppConstants.LOCK_PACKAGE_NAME, AppConstants.APP_PACKAGE_NAME); //传自己的包名
+                    intent.putExtra(AppConstants.LOCK_FROM, AppConstants.LOCK_FROM_LOCK_MAIN_ACITVITY);
                     startActivity(intent);
                     finish();
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

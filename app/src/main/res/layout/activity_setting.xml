@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tool="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/white"
@@ -54,7 +55,7 @@
             android:gravity="center_vertical"
             android:text="应用锁"
             android:textColor="#2c2c2c"
-            android:textSize="16sp"/>
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/lock_tip"
@@ -62,7 +63,7 @@
             android:layout_height="25dp"
             android:layout_below="@+id/lock_title"
             android:gravity="center_vertical"
-            android:text="已开启，加锁应用打开时需要密码"/>
+            tool:text="已开启，加锁应用打开时需要密码"/>
 
         <CheckBox
             android:id="@+id/switch_compat"
@@ -94,7 +95,7 @@
             android:gravity="center_vertical"
             android:text="锁定时机"
             android:textColor="#2c2c2c"
-            android:textSize="16sp"/>
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/lock_time"
@@ -104,15 +105,47 @@
             android:layout_centerVertical="true"
             android:drawablePadding="15dp"
             android:drawableRight="@drawable/arrow_more"
-            android:text="锁屏后"/>
+            tool:text="锁屏后"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
             android:background="#DEDEDE"
+            android:textColor="#2c2c2c"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lock_screen"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/bg_white_clicked"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="锁屏后立即加锁"
             android:textColor="#2c2c2c"
-            android:textSize="16sp"/>
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/lock_screen_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="15dp"
+            android:drawableRight="@drawable/arrow_more"
+            android:text="开"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="#DEDEDE"/>
     </RelativeLayout>
 
     <TextView
@@ -126,7 +159,7 @@
         android:paddingRight="20dp"
         android:text="更改密码"
         android:textColor="#2c2c2c"
-        android:textSize="16sp"/>
+        android:textSize="14sp"/>
 
     <View
         android:layout_width="match_parent"
@@ -144,9 +177,9 @@
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="显示图案"
+        android:text="显示路径"
         android:textColor="#2c2c2c"
-        android:textSize="16sp"/>
+        android:textSize="14sp"/>
 
     <View
         android:layout_width="match_parent"
@@ -166,7 +199,7 @@
         android:paddingRight="20dp"
         android:text="关于我"
         android:textColor="#2c2c2c"
-        android:textSize="16sp"/>
+        android:textSize="14sp"/>
 
     <View
         android:layout_width="match_parent"

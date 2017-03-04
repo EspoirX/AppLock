@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def releaseTime() {
+    return new Date().format("yyMMdd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
@@ -13,20 +17,32 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            zipAlignEnabled true //Zipalign优化
+            shrinkResources false //移除无用的resource文件
+            minifyEnabled false  //混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                //这里修改apk文件名
+                def fileName = "AppLock_v${defaultConfig.versionName}_${releaseTime()}.apk"
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
+    //忽略一些错误
+    lintOptions {
+        abortOnError true
     }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
     compile 'com.android.support:appcompat-v7:25.0.0'
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:25.0.0'
-
+    //数据库
     compile 'org.litepal.android:core:1.4.1'
 }

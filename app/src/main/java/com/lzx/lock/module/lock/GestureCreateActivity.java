@@ -1,4 +1,4 @@
-package com.lzx.lock.activity.lock;
+package com.lzx.lock.module.lock;
 
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +28,6 @@ public class GestureCreateActivity extends BaseActivity implements View.OnClickL
     private TextView mLockTip;
 
     private LockStage mUiStage = LockStage.Introduction;
-    public static final int ID_EMPTY_MESSAGE = -1;
     protected List<LockPatternView.Cell> mChosenPattern = null; //密码
     private static final String KEY_PATTERN_CHOICE = "chosenPattern";
     private static final String KEY_UI_STAGE = "uiStage";

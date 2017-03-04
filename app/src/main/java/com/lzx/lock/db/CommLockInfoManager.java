@@ -6,7 +6,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 
-import com.lzx.lock.base.Constants;
+import com.lzx.lock.base.AppConstants;
 import com.lzx.lock.bean.CommLockInfo;
 import com.lzx.lock.bean.FaviterInfo;
 import com.lzx.lock.utils.DataUtil;
@@ -64,7 +64,7 @@ public class CommLockInfoManager {
             ApplicationInfo appInfo = mPackageManager.getApplicationInfo(commLockInfo.getPackageName(), PackageManager.GET_UNINSTALLED_PACKAGES);
             String appName = mPackageManager.getApplicationLabel(appInfo).toString();
             //过滤掉一些应用
-            if (!commLockInfo.getPackageName().equals(Constants.APP_PACKAGE_NAME) && !commLockInfo.getPackageName().equals("com.android.settings")
+            if (!commLockInfo.getPackageName().equals(AppConstants.APP_PACKAGE_NAME) && !commLockInfo.getPackageName().equals("com.android.settings")
                     && !commLockInfo.getPackageName().equals("com.google.android.googlequicksearchbox")) {
                 if (isfaviterApp) { //如果是推荐的
                     commLockInfo.setLocked(true);
@@ -138,6 +138,14 @@ public class CommLockInfoManager {
             }
         }
         return false;
+    }
+
+    /**
+     * 模糊匹配
+     */
+    public List<CommLockInfo> queryBlurryList(String appName) {
+        List<CommLockInfo> infos = DataSupport.where("appName like ?", "%" + appName + "%").find(CommLockInfo.class);
+        return infos;
     }
 
     public void setIsUnLockThisApp(String packageName, boolean isSetUnLock) {

@@ -8,7 +8,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.lzx.lock.LockApp;
+import com.lzx.lock.LockApplication;
 import com.lzx.lock.R;
 import com.lzx.lock.utils.SystemBarHelper;
 
@@ -24,7 +24,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LockApp.getInstance().doForCreate(this);
+        LockApplication.getInstance().doForCreate(this);
         //设置布局内容
         setContentView(getLayoutId());
         //初始化控件
@@ -80,7 +80,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LockApp.getInstance().doForFinish(this);
+        LockApplication.getInstance().doForFinish(this);
     }
 
     public final void clear() {

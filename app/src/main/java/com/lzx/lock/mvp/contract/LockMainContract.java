@@ -5,6 +5,7 @@ import android.content.Context;
 import com.lzx.lock.base.BasePresenter;
 import com.lzx.lock.base.BaseView;
 import com.lzx.lock.bean.CommLockInfo;
+import com.lzx.lock.mvp.p.LockMainPresenter;
 
 import java.util.List;
 
@@ -19,9 +20,9 @@ public interface LockMainContract {
     }
 
     interface Presenter extends BasePresenter {
-        void loadAppInfo(Context context, boolean isSort);
+        void loadAppInfo(Context context);
 
-        void loadLockAppInfo(Context context);
+        void searchAppInfo(String search, LockMainPresenter.ISearchResultListener listener);
 
         void onDestroy();
     }

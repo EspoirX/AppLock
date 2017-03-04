@@ -1,4 +1,4 @@
-package com.lzx.lock.activity.unlock;
+package com.lzx.lock.module.lock;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.widget.RelativeLayout;
 
 import com.lzx.lock.R;
 import com.lzx.lock.base.BaseActivity;
-import com.lzx.lock.base.Constants;
+import com.lzx.lock.base.AppConstants;
 import com.lzx.lock.db.CommLockInfoManager;
 import com.lzx.lock.module.main.MainActivity;
 import com.lzx.lock.module.setting.LockSettingActivity;
@@ -48,9 +48,9 @@ public class GestureSelfUnlockActivity extends BaseActivity {
     protected void initData() {
         mManager = new CommLockInfoManager(this);
         //获取解锁应用的包名
-        pkgName = getIntent().getStringExtra(Constants.LOCK_PACKAGE_NAME);
+        pkgName = getIntent().getStringExtra(AppConstants.LOCK_PACKAGE_NAME);
         //获取按返回键的操作
-        actionFrom = getIntent().getStringExtra(Constants.LOCK_FROM);
+        actionFrom = getIntent().getStringExtra(AppConstants.LOCK_FROM);
 
         initLockPatternView();
     }
@@ -66,19 +66,19 @@ public class GestureSelfUnlockActivity extends BaseActivity {
             public void onPatternDetected(List<LockPatternView.Cell> pattern) {
                 if (mLockPatternUtils.checkPattern(pattern)) { //解锁成功,更改数据库状态
                     mLockPatternView.setDisplayMode(LockPatternView.DisplayMode.Correct);
-                    if (actionFrom.equals(Constants.LOCK_FROM_LOCK_MAIN_ACITVITY)) {
+                    if (actionFrom.equals(AppConstants.LOCK_FROM_LOCK_MAIN_ACITVITY)) {
                         Intent intent = new Intent(GestureSelfUnlockActivity.this, MainActivity.class);
                         startActivity(intent);
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         finish();
-                    } else if (actionFrom.equals(Constants.LOCK_FROM_FINISH)) {
+                    } else if (actionFrom.equals(AppConstants.LOCK_FROM_FINISH)) {
                         mManager.unlockCommApplication(pkgName);
                         finish();
-                    } else if (actionFrom.equals(Constants.LOCK_FROM_SETTING)) {
+                    } else if (actionFrom.equals(AppConstants.LOCK_FROM_SETTING)) {
                         startActivity(new Intent(GestureSelfUnlockActivity.this, LockSettingActivity.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         finish();
-                    } else if (actionFrom.equals(Constants.LOCK_FROM_UNLOCK)) {
+                    } else if (actionFrom.equals(AppConstants.LOCK_FROM_UNLOCK)) {
                         mManager.setIsUnLockThisApp(pkgName, true);
                         mManager.unlockCommApplication(pkgName);
                         sendBroadcast(new Intent(GestureUnlockActivity.FINISH_UNLOCK_THIS_APP));

@@ -4,7 +4,7 @@ package com.lzx.lock.base;
  * Created by xian on 2017/2/17.
  */
 
-public class Constants {
+public class AppConstants {
 
     public static final String LOCK_STATE = "app_lock_state"; //应用锁开关(状态，true开，false关)
     public static final String LOCK_FAVITER_NUM = "lock_faviter_num"; //推荐加锁应用个数

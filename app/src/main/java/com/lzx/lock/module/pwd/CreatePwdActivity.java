@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.lzx.lock.R;
 import com.lzx.lock.base.BaseActivity;
-import com.lzx.lock.base.Constants;
+import com.lzx.lock.base.AppConstants;
 import com.lzx.lock.bean.LockStage;
 import com.lzx.lock.module.main.MainActivity;
 import com.lzx.lock.mvp.contract.GestureCreateContract;
@@ -99,9 +99,9 @@ public class CreatePwdActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void gotoLockMainActivity() {
-        SpUtil.getInstance().putBoolean(Constants.LOCK_STATE, true); //开启应用锁开关
+        SpUtil.getInstance().putBoolean(AppConstants.LOCK_STATE, true); //开启应用锁开关
         startService(new Intent(this, LockService.class));
-        SpUtil.getInstance().putBoolean(Constants.LOCK_IS_FIRST_LOCK, false);
+        SpUtil.getInstance().putBoolean(AppConstants.LOCK_IS_FIRST_LOCK, false);
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 
-import com.lzx.lock.base.Constants;
+import com.lzx.lock.base.AppConstants;
 import com.lzx.lock.bean.CommLockInfo;
 import com.lzx.lock.bean.FaviterInfo;
 import com.lzx.lock.db.CommLockInfoManager;
@@ -45,10 +45,10 @@ public class LoadAppListService extends IntentService {
 
         time = System.currentTimeMillis();
 
-        boolean isInitFaviter = SpUtil.getInstance().getBoolean(Constants.LOCK_IS_INIT_FAVITER, false);
-        boolean isInitDb = SpUtil.getInstance().getBoolean(Constants.LOCK_IS_INIT_DB, false);
+        boolean isInitFaviter = SpUtil.getInstance().getBoolean(AppConstants.LOCK_IS_INIT_FAVITER, false);
+        boolean isInitDb = SpUtil.getInstance().getBoolean(AppConstants.LOCK_IS_INIT_DB, false);
         if (!isInitFaviter) {
-            SpUtil.getInstance().putBoolean(Constants.LOCK_IS_INIT_FAVITER, true);
+            SpUtil.getInstance().putBoolean(AppConstants.LOCK_IS_INIT_FAVITER, true);
             initFavoriteApps();
         }
 
@@ -62,7 +62,7 @@ public class LoadAppListService extends IntentService {
             List<CommLockInfo> dbList = mLockInfoManager.getAllCommLockInfos(); //获取数据库列表
             //处理应用列表
             for (ResolveInfo resolveInfo : resolveInfos) {
-                if (!resolveInfo.activityInfo.packageName.equals(Constants.APP_PACKAGE_NAME) &&
+                if (!resolveInfo.activityInfo.packageName.equals(AppConstants.APP_PACKAGE_NAME) &&
                         !resolveInfo.activityInfo.packageName.equals("com.android.settings")) {
                     appList.add(resolveInfo);
                 }
@@ -103,7 +103,7 @@ public class LoadAppListService extends IntentService {
             }
         } else {
             //数据库只插入一次
-            SpUtil.getInstance().putBoolean(Constants.LOCK_IS_INIT_DB, true);
+            SpUtil.getInstance().putBoolean(AppConstants.LOCK_IS_INIT_DB, true);
             try {
                 mLockInfoManager.instanceCommLockInfoTable(resolveInfos);    //插入数据库
             } catch (PackageManager.NameNotFoundException e) {

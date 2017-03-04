@@ -9,13 +9,14 @@
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
-        android:name=".LockApp"
+        android:name=".LockApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-
+        android:manageSpaceActivity=".module.splash.SplashActivity"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -34,11 +35,11 @@
             android:label="创建密码"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.unlock.GestureSelfUnlockActivity"
+            android:name=".module.lock.GestureSelfUnlockActivity"
             android:label="解锁"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.unlock.GestureUnlockActivity"
+            android:name=".module.lock.GestureUnlockActivity"
             android:excludeFromRecents="true"
             android:label=""
             android:launchMode="singleTask"
@@ -50,15 +51,11 @@
             android:label="设置"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.lock.GestureCreateActivity"
+            android:name=".module.lock.GestureCreateActivity"
             android:label="创建图案锁"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.lock.NumberCreateActivity"
-            android:label="创建数字"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.AboutMeActivity"
+            android:name=".module.about.AboutMeActivity"
             android:label="关于我"
             android:screenOrientation="portrait"/>
         <activity
@@ -67,16 +64,13 @@
 
         <service android:name=".service.LoadAppListService"/>
         <service android:name=".service.LockService"/>
-        <service
-            android:name=".service.NotificationService"
-            android:label="@string/app_name"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
-            android:process=":remote">
-             
+
+        <receiver android:name=".receiver.BootBroadcastReceiver">
             <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </service>
+        </receiver>
     </application>
 
 </manifest>

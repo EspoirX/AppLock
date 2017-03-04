@@ -36,7 +36,7 @@ import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 
 import com.lzx.lock.R;
-import com.lzx.lock.base.Constants;
+import com.lzx.lock.base.AppConstants;
 import com.lzx.lock.utils.LockPatternUtils;
 import com.lzx.lock.utils.SpUtil;
 
@@ -327,7 +327,7 @@ public class LockPatternView extends View {
         mPathPaint.setStrokeJoin(Paint.Join.ROUND);
         mPathPaint.setStrokeCap(Paint.Cap.ROUND);
 
-        defaultIsHideLine = SpUtil.getInstance().getBoolean(Constants.LOCK_IS_HIDE_LINE, false);
+        defaultIsHideLine = SpUtil.getInstance().getBoolean(AppConstants.LOCK_IS_HIDE_LINE, false);
         a.recycle();
     }
 
@@ -506,7 +506,7 @@ public class LockPatternView extends View {
      * 初始化资源
      */
     public void initRes(){
-        defaultIsHideLine = SpUtil.getInstance().getBoolean(Constants.LOCK_IS_HIDE_LINE, false);
+        defaultIsHideLine = SpUtil.getInstance().getBoolean(AppConstants.LOCK_IS_HIDE_LINE, false);
         mBitmapCircleDefault = getBitmapFor(res_gesture_pattern_item_bg);
         if (defaultIsHideLine) {
             mBitmapCircleGreen = mBitmapCircleDefault;
@@ -1028,7 +1028,7 @@ public class LockPatternView extends View {
             else
                 mPathPaint.setColor(line_color_right);
 
-            defaultIsHideLine = SpUtil.getInstance().getBoolean(Constants.LOCK_IS_HIDE_LINE, false);
+            defaultIsHideLine = SpUtil.getInstance().getBoolean(AppConstants.LOCK_IS_HIDE_LINE, false);
             if (!defaultIsHideLine) {
                 canvas.drawPath(currentPath, mPathPaint);
             }

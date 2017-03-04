@@ -1,4 +1,4 @@
-package com.lzx.lock.activity;
+package com.lzx.lock.module.about;
 
 import android.os.Bundle;
 
