@@ -31,9 +31,9 @@ import com.lzx.lock.widget.SelectLockTimeDialog;
 
 public class LockSettingActivity extends BaseActivity implements View.OnClickListener
         , DialogInterface.OnDismissListener {
-    private TextView mBtnAbout, mLockTime, mBtnChangePwd, mIsShowPath, mLockTip, mLockScreenSwitch;
+    private TextView mBtnAbout, mLockTime, mBtnChangePwd, mIsShowPath, mLockTip, mLockScreenSwitch,mLockTakePicSwitch;
     private CheckBox mLockSwitch;
-    private RelativeLayout mLockWhen, mLockScreen;
+    private RelativeLayout mLockWhen, mLockScreen,mLockTakePic;
     private LockSettingReceiver mLockSettingReceiver;
     public static final String ON_ITEM_CLICK_ACTION = "on_item_click_action";
     private SelectLockTimeDialog dialog;
@@ -53,9 +53,11 @@ public class LockSettingActivity extends BaseActivity implements View.OnClickLis
         mLockSwitch = (CheckBox) findViewById(R.id.switch_compat);
         mLockWhen = (RelativeLayout) findViewById(R.id.lock_when);
         mLockScreen = (RelativeLayout) findViewById(R.id.lock_screen);
+        mLockTakePic = (RelativeLayout) findViewById(R.id.lock_take_pic);
         mIsShowPath = (TextView) findViewById(R.id.is_show_path);
         mLockTip = (TextView) findViewById(R.id.lock_tip);
         mLockScreenSwitch = (TextView) findViewById(R.id.lock_screen_switch);
+        mLockTakePicSwitch = (TextView) findViewById(R.id.lock_take_pic_switch);
         mTopLayout = (RelativeLayout) findViewById(R.id.top_layout);
         mTopLayout.setPadding(0, SystemBarHelper.getStatusBarHeight(this), 0, 0);
     }
@@ -74,6 +76,9 @@ public class LockSettingActivity extends BaseActivity implements View.OnClickLis
         boolean isLockAutoScreen = SpUtil.getInstance().getBoolean(AppConstants.LOCK_AUTO_SCREEN, false);
         mLockScreenSwitch.setText(isLockAutoScreen ? "开" : "关");
 
+        boolean isTakePic = SpUtil.getInstance().getBoolean(AppConstants.LOCK_AUTO_RECORD_PIC,false);
+        mLockTakePicSwitch.setText(isTakePic ? "开" : "关");
+
         mLockTime.setText(SpUtil.getInstance().getString(AppConstants.LOCK_APART_TITLE,"立即"));
     }
 
@@ -85,6 +90,7 @@ public class LockSettingActivity extends BaseActivity implements View.OnClickLis
         mLockScreen.setOnClickListener(this);
         mIsShowPath.setOnClickListener(this);
         mLockScreenSwitch.setOnClickListener(this);
+        mLockTakePic.setOnClickListener(this);
         mLockSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -136,6 +142,16 @@ public class LockSettingActivity extends BaseActivity implements View.OnClickLis
                 } else {
                     SpUtil.getInstance().putBoolean(AppConstants.LOCK_AUTO_SCREEN, true);
                     mLockScreenSwitch.setText("开");
+                }
+                break;
+            case R.id.lock_take_pic:
+                boolean isTakePic = SpUtil.getInstance().getBoolean(AppConstants.LOCK_AUTO_RECORD_PIC,false);
+                if (isTakePic) {
+                    SpUtil.getInstance().putBoolean(AppConstants.LOCK_AUTO_RECORD_PIC, false);
+                    mLockTakePicSwitch.setText("关");
+                } else {
+                    SpUtil.getInstance().putBoolean(AppConstants.LOCK_AUTO_RECORD_PIC, true);
+                    mLockTakePicSwitch.setText("开");
                 }
                 break;
         }

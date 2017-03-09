@@ -148,6 +148,40 @@
             android:background="#DEDEDE"/>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/lock_take_pic"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/bg_white_clicked"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="解锁错误自动拍照"
+            android:textColor="#2c2c2c"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/lock_take_pic_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="15dp"
+            android:drawableRight="@drawable/arrow_more"
+            android:text="开"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="#DEDEDE"/>
+    </RelativeLayout>
+
+
     <TextView
         android:id="@+id/btn_change_pwd"
         android:layout_width="match_parent"

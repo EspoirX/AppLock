@@ -41,4 +41,13 @@ public class ScreenUtil {
         return dm;
     }
 
+    /**
+     * 获取屏幕旋转方向
+     * @param context 上下文
+     * @return 屏幕方向 ORIENTATION_LANDSCAPE, ORIENTATION_PORTRAIT.
+     */
+    public static int getDisplayOrient (Context context) {
+        return context.getResources().getConfiguration().orientation;
+    }
+
 }

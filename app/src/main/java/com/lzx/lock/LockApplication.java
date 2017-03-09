@@ -54,4 +54,6 @@ public class LockApplication extends LitePalApplication {
         return activity instanceof GestureUnlockActivity;
     }
 
+
+
 }

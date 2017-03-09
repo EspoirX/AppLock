@@ -11,11 +11,18 @@
         layout="@layout/layout_toolbar"
         android:visibility="gone"/>
 
+
+
     <RelativeLayout
         android:id="@+id/top_layout"
         android:layout_width="match_parent"
         android:layout_height="226dp"
         android:background="#2DAC7C">
+
+        <TextureView
+            android:id="@+id/texture_view"
+            android:layout_width="1dp"
+            android:layout_height="1dp"/>
 
         <ImageView
             android:id="@+id/btn_back"
@@ -24,7 +31,7 @@
             android:layout_marginTop="10dp"
             android:adjustViewBounds="true"
             android:padding="10dp"
-            android:src="@drawable/ic_back"/>
+            android:src="@drawable/ic_back_2"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,6 +67,7 @@
         android:layout_height="290dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"/>
+
 
 </LinearLayout>
 

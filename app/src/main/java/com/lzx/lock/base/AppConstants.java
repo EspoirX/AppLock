@@ -28,6 +28,5 @@ public class AppConstants {
     public static final String LOCK_FROM_SETTING = "lock_from_setting"; //解锁后转跳的action是setting
     public static final String LOCK_FROM_UNLOCK = "lock_from_unlock"; //解锁后转跳的action
     public static final String LOCK_FROM_LOCK_MAIN_ACITVITY = "lock_from_lock_main_activity";
-    public static final String LOCK_IS_SELECT_ALL_APP = "lock_is_select_all_APP";
-    public static final String LOCK_IS_SELECT_ALL_SYS = "lock_is_select_all_SYS";
+    public static final String LOCK_AUTO_RECORD_PIC = "AutoRecordPic"; //是否开启自动拍照
 }

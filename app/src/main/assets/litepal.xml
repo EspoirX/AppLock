@@ -5,6 +5,7 @@
     <list>
         <mapping class="com.lzx.lock.bean.CommLockInfo" />
         <mapping class="com.lzx.lock.bean.FaviterInfo" />
+        <mapping class="com.lzx.lock.bean.LockPrivate"/>
     </list>
 
     <storage value="external" />

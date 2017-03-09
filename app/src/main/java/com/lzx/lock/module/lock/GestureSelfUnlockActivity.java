@@ -2,15 +2,17 @@ package com.lzx.lock.module.lock;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.TextureView;
 import android.widget.RelativeLayout;
 
 import com.lzx.lock.R;
-import com.lzx.lock.base.BaseActivity;
 import com.lzx.lock.base.AppConstants;
+import com.lzx.lock.base.BaseActivity;
 import com.lzx.lock.db.CommLockInfoManager;
 import com.lzx.lock.module.main.MainActivity;
 import com.lzx.lock.module.setting.LockSettingActivity;
 import com.lzx.lock.utils.LockPatternUtils;
+import com.lzx.lock.utils.SpUtil;
 import com.lzx.lock.utils.SystemBarHelper;
 import com.lzx.lock.widget.LockPatternView;
 import com.lzx.lock.widget.LockPatternViewPattern;
@@ -32,6 +34,8 @@ public class GestureSelfUnlockActivity extends BaseActivity {
     private CommLockInfoManager mManager;
     private RelativeLayout mTopLayout;
 
+    private TextureView mTextureView;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_gesture_self_unlock;
@@ -41,7 +45,8 @@ public class GestureSelfUnlockActivity extends BaseActivity {
     protected void initViews(Bundle savedInstanceState) {
         mLockPatternView = (LockPatternView) findViewById(R.id.unlock_lock_view);
         mTopLayout = (RelativeLayout) findViewById(R.id.top_layout);
-        mTopLayout.setPadding(0, SystemBarHelper.getStatusBarHeight(this),0,0);
+        mTextureView = (TextureView) findViewById(R.id.texture_view);
+        mTopLayout.setPadding(0, SystemBarHelper.getStatusBarHeight(this), 0, 0);
     }
 
     @Override
@@ -53,6 +58,8 @@ public class GestureSelfUnlockActivity extends BaseActivity {
         actionFrom = getIntent().getStringExtra(AppConstants.LOCK_FROM);
 
         initLockPatternView();
+
+
     }
 
     /**
@@ -94,7 +101,9 @@ public class GestureSelfUnlockActivity extends BaseActivity {
                     } else {
                     }
                     if (mFailedPatternAttemptsSinceLastTimeout >= 3) { //失败次数大于3次
+                        if (SpUtil.getInstance().getBoolean(AppConstants.LOCK_AUTO_RECORD_PIC, false)) {
 
+                        }
                     }
                     if (mFailedPatternAttemptsSinceLastTimeout >= LockPatternUtils.FAILED_ATTEMPTS_BEFORE_TIMEOUT) { //失败次数大于阻止用户前的最大错误尝试次数
 
@@ -114,9 +123,12 @@ public class GestureSelfUnlockActivity extends BaseActivity {
         }
     };
 
-
     @Override
     protected void initAction() {
 
     }
+
+
+
+
 }
