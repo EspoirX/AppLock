@@ -11,11 +11,6 @@ AppLock应用锁，保护你的隐私。       
 在5.0以上的系统需要获取 查看应用使用情况 的权限，否则应用锁会失效   
 若有好的建议例如实现方案，界面，功能等欢迎提出。
 
-#### 成功案例
-感谢一老外在这项目基础上做了优化，做了一个AppLock，希望有更多人关注和优化我的这个项目。  
-链接：https://codecanyon.net/item/mdevappteam-applock-security-android-application-with-admob-ads/20851282?s_rank=3  
-（如果你想加入商业元素，请征求我本人意见）
-
 #### 功能介绍
 
 V1.1
