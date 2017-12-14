@@ -62,10 +62,13 @@ public class LockUtil {
      * @return
      */
     public static boolean isNoOption(Context context) {
-        PackageManager packageManager = context.getPackageManager();
-        Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-        List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        return list.size() > 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            PackageManager packageManager = context.getPackageManager();
+            Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+            List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+            return list.size() > 0;
+        }
+        return false;
     }
 
     /**
