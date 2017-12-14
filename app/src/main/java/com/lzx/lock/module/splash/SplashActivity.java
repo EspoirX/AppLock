@@ -75,7 +75,8 @@ public class SplashActivity extends BaseActivity {
      * 弹出dialog
      */
     private void showDialog() {
-        if (!LockUtil.isStatAccessPermissionSet(SplashActivity.this)) {
+        //如果没有获得查看使用情况权限和手机存在查看使用情况这个界面
+        if (!LockUtil.isStatAccessPermissionSet(SplashActivity.this) && LockUtil.isNoOption(SplashActivity.this)) {
             DialogPermission dialog = new DialogPermission(SplashActivity.this);
             dialog.show();
             dialog.setOnClickListener(new DialogPermission.onClickListener() {
@@ -89,7 +90,6 @@ public class SplashActivity extends BaseActivity {
             gotoCreatePwdActivity();
         }
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
