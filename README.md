@@ -42,7 +42,7 @@ https://github.com/wenmingvs/AndroidProcess
 
 
 #### Apk下载
-![](art/download.png)
+![](art/qc_download.png)
 
 #### 截图
 <a href="art/1.png"><img src="art/1.png" width="30%"/></a>
