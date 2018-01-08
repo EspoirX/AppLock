@@ -28,6 +28,7 @@ public class DialogSearch extends BaseDialog implements LockMainContract.View {
     private Context mContext;
     private EditText mEditSearch;
     private RecyclerView mRecyclerView;
+    private ImageView mBtnBack;
     private MainAdapter mMainAdapter;
     private LockMainPresenter mLockMainPresenter;
 
@@ -62,6 +63,7 @@ public class DialogSearch extends BaseDialog implements LockMainContract.View {
         mLockMainPresenter = new LockMainPresenter(this, mContext);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mEditSearch = (EditText) findViewById(R.id.edit_search);
+        mBtnBack = (ImageView) findViewById(R.id.btn_back);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mMainAdapter = new MainAdapter(mContext);
         mRecyclerView.setAdapter(mMainAdapter);
@@ -89,6 +91,13 @@ public class DialogSearch extends BaseDialog implements LockMainContract.View {
                         }
                     });
                 }
+            }
+        });
+        
+        mBtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
             }
         });
     }
