@@ -6,6 +6,8 @@
 
 ![](art/ic_launcher.png)
 
+项目正在重构，一半一半了，不过请原谅我有拖延症晚期...慢慢来呗...
+
 #### 简介  
 AppLock应用锁，保护你的隐私。       
 欢迎Start,Fork和Issues。
